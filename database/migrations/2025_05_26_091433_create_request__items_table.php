@@ -6,20 +6,25 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('supplies', function (Blueprint $table) {
+        Schema::create('request_items', function (Blueprint $table) {
             $table->id();
-            $table->string('item');
-            $table->string('unit');
+            $table->foreignId('supply_id')->constrained('supplies');
+            $table->foreignId('request_id')->constrained('requests');
             $table->integer('quantity');
-            $table->decimal('unit_cost', 10, 2);
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('supplies');
+        Schema::dropIfExists('request__items');
     }
 };
