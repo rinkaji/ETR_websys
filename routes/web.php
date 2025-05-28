@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\RequestController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn() => view('welcome'));
@@ -16,9 +17,14 @@ Route::post('/logout',  [LoginController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
+    // Office request routes
+    Route::get('/request/create', [RequestController::class, 'create'])->name('request.create');
+    Route::post('/request', [RequestController::class, 'store'])->name('request.store');
 
-Route::middleware('auth')->group(function () {
+    // Admin request management
+    Route::get('/admin/requests', [RequestController::class, 'index'])->name('admin.requests');
+    Route::post('/admin/requests/{request}/accept', [RequestController::class, 'accept'])->name('admin.requests.accept');
+    Route::post('/admin/requests/{request}/reject', [RequestController::class, 'reject'])->name('admin.requests.reject');
+
     Route::resource('admin', AdminController::class);
-});
-
 });

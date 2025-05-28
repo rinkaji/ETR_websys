@@ -9,7 +9,7 @@ class AuthModel {
 
     public function registerUser($data) {
         return User::create([
-            'name' => $data['name'],
+            'office' => $data['office'],
             'email' => $data['email'], 
             'password' => Hash::make($data['password']),
             'role' => $data['role']

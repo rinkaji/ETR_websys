@@ -31,7 +31,7 @@
         </div>
         <div>
             <label for="name">Office: </label>
-            <input type="text" name="name" required>
+            <input type="text" name="office" required>
         </div>
         <div>
             <label for="email">Email: </label>

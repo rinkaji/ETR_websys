@@ -40,31 +40,12 @@
                 <input type="number" name="quantity" required>
             </div>
             <div>
-                <label for="purchase_supplies">Purchase Supplies</label>
-                <input type="number" step="0.01" name="purchase_supplies" required>
-            </div>
-            <div>
-                <label for="received_supplies">Received Supplies</label>
-                <input type="number" step="0.01" name="received_supplies" required>
-            </div>
-            <div>
-                <label for="inventory_end">Inventory End</label>
-                <input type="number" step="0.01" name="inventory_end" required>
-            </div>
-            <div>
-                <label for="issued">Issued</label>
-                <input type="number" name="issued" required>
-            </div>
-            <div>
                 <label for="unit_cost">Unit Cost</label>
                 <input type="number" step="0.01" name="unit_cost" required>
             </div>
-            <div>
-                <label for="amount">Amount</label>
-                <input type="number" step="0.01" name="amount" required>
-            </div>
             <button type="submit">Create</button>
         </form>
+        <a href="{{ route('dashboard') }}">Back to Dashboard</a>
     </div>
 </body>
 </html>

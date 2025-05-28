@@ -24,12 +24,7 @@ class AdminController extends Controller
             'item' => 'required',
             'unit' => 'required',
             'quantity' => 'required|numeric',
-            'purchase_supplies' => 'required|numeric',
-            'received_supplies' => 'required|numeric',
-            'inventory_end' => 'required|numeric',
-            'issued' => 'required|numeric',
             'unit_cost' => 'required|numeric',
-            'amount' => 'required|numeric',
         ]);
 
         Supply::create($validated);
