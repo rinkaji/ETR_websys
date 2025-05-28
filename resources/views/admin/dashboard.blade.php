@@ -2,6 +2,8 @@
 <p class="text-lg">Welcome, <span class="font-semibold">{{ auth()->user()->name }}</span></p>
 <p class="text-sm text-gray-600 mb-6">Email: {{ auth()->user()->email }}</p>
 
+<a href="{{ route('admin.requests') }}" class="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition mb-6">View Office Requests</a>
+
 <h2 class="text-2xl font-semibold mt-8 mb-4">Admin Controls</h2>
 
 <a href="{{ route('admin.create') }}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition mb-6">Create Supply</a>

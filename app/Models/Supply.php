@@ -10,11 +10,11 @@ class Supply extends Model
         'item',
         'unit',
         'quantity',
-        'purchase_supplies',
-        'received_supplies',
-        'inventory_end',
-        'issued',
         'unit_cost',
-        'amount'
     ];
+
+    public function requestItems()
+    {
+        return $this->hasMany(\App\Models\Request_Item::class, 'supply_id');
+    }
 }
