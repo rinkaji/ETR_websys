@@ -11,6 +11,8 @@ class Supply extends Model
         'unit',
         'quantity',
         'unit_cost',
+        'supply_from',
+        'supply_from_quantity',
     ];
 
     public function requestItems()
