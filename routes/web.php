@@ -16,6 +16,7 @@ Route::post('/logout',  [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
     // Office request routes
     Route::get('/request/create', [RequestController::class, 'create'])->name('request.create');
@@ -25,6 +26,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/requests', [RequestController::class, 'index'])->name('admin.requests');
     Route::post('/admin/requests/{request}/accept', [RequestController::class, 'accept'])->name('admin.requests.accept');
     Route::post('/admin/requests/{request}/reject', [RequestController::class, 'reject'])->name('admin.requests.reject');
+
+    Route::get('/admin/history', [AdminController::class, 'history'])->name('admin.history');
 
     Route::resource('admin', AdminController::class);
 });

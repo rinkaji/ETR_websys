@@ -1,53 +1,115 @@
-<h1 class="text-3xl font-bold mb-4">Admin Dashboard</h1>
-<p class="text-lg">Welcome, <span class="font-semibold">{{ auth()->user()->name }}</span></p>
-<p class="text-sm text-gray-600 mb-6">Email: {{ auth()->user()->email }}</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-4">
+    <h1 class="mb-4">Admin Dashboard</h1>
+    <p>Welcome, <strong>{{ auth()->user()->name }}</strong></p>
+    <p>Email: {{ auth()->user()->email }}</p>
 
-<a href="{{ route('admin.requests') }}" class="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition mb-6">View Office Requests</a>
+    <div class="mb-3">
+        <a href="{{ route('admin.requests') }}" class="btn btn-success me-2">View Office Requests</a>
+        <a href="{{ route('admin.create') }}" class="btn btn-primary me-2">Create Supply</a>
+        <a href="{{ route('register') }}" class="btn btn-secondary me-2">Register Users</a>
+        <a href="{{ route('admin.history') }}" class="btn btn-warning">View History</a>
+    </div>
 
-<h2 class="text-2xl font-semibold mt-8 mb-4">Admin Controls</h2>
+    <div class="row mb-4">
+        <div class="col">
+            <div class="card text-bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Total Items</h5>
+                    <p class="card-text fs-3">{{ $totalSupplies }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-bg-warning">
+                <div class="card-body">
+                    <h5 class="card-title">Low Stock</h5>
+                    <p class="card-text fs-3">{{ $lowStockCount }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-bg-info">
+                <div class="card-body">
+                    <h5 class="card-title">Pending Requests</h5>
+                    <p class="card-text fs-3">{{ $pendingRequests }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<a href="{{ route('admin.create') }}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition mb-6">Create Supply</a>
-<a href="{{ route('register') }}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition mb-6">Register Users</a>
+    <form method="GET" action="{{ route('dashboard') }}" class="row g-3 mb-3">
+        <div class="col-md-4">
+            <input type="text" name="search" class="form-control" placeholder="Search by name, code, category" value="{{ request('search') }}">
+        </div>
+     
+        <div class="col-md-2">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="low_stock" value="1" @if(request('low_stock')) checked @endif>
+                <label class="form-check-label">Low Stock Only</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-outline-primary">Filter</button>
+        </div>
+    </form>
 
-<div class="overflow-x-auto bg-white shadow rounded-lg">
-   <table border="1" class="min-w-full table-auto border-collapse">
-    <thead>
-        <tr class="bg-gray-100 text-gray-700 text-left text-sm uppercase tracking-wider">
-            <th class="px-6 py-3 border-b">Item</th>
-            <th class="px-6 py-3 border-b">Unit</th>
-            <th class="px-6 py-3 border-b">Quantity</th>
-            <th class="px-6 py-3 border-b">Purchase Supplies</th>
-            <th class="px-6 py-3 border-b">Received Supplies</th>
-            <th class="px-6 py-3 border-b">Issued Supplies</th>
-            <th class="px-6 py-3 border-b">Inventory End</th>
-            <th class="px-6 py-3 border-b">Total Cost</th>
-            <th class="px-6 py-3 border-b">Unit Cost</th>
-            <th class="px-6 py-3 border-b">Amount</th>
-        </tr>
-    </thead>
-    <tbody class="text-sm text-gray-800">
-        @foreach($supplies as $supply)
-        <tr class="hover:bg-gray-50 transition">
-            <td class="px-6 py-4 border-b">{{ $supply->item }}</td>
-            <td class="px-6 py-4 border-b">{{ $supply->unit }}</td>
-            <td class="px-6 py-4 border-b">{{ $supply->quantity }}</td>
-            <td class="px-6 py-4 border-b">{{ $supply->purchase_supplies }}</td>
-            <td class="px-6 py-4 border-b">{{ $supply->received_supplies }}</td>
-            <td class="px-6 py-4 border-b">{{ $supply->issued }}</td>
-            <td class="px-6 py-4 border-b">{{ $supply->inventory_end }}</td>
-            <td class="px-6 py-4 border-b">{{  number_format($supply->quantity * $supply->unit_cost, 2) }}</td>
-            <td class="px-6 py-4 border-b">{{ number_format($supply->unit_cost, 2) }}</td>
-            <td class="px-6 py-4 border-b">
-                {{number_format($supply->unit_cost, 2) }}
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+    @if($lowStockCount > 0)
+        <div class="alert alert-danger">
+            <strong>Low Stock Alert:</strong> Some items are below their reorder threshold!
+        </div>
+    @endif
 
+    <h2 class="h4 mt-4 mb-3">Supplies Inventory</h2>
+    <div class="table-responsive bg-white rounded shadow-sm">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Item</th>
+                    <th>Unit</th>
+                    <th>Quantity</th>
+                    <th>Unit Cost</th>
+                    <th>Supply From</th>
+                    <th>Supply From Quantity</th>
+                    <th>Reorder Threshold</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($supplies as $supply)
+                <tr>
+                    <td>{{ $supply->item }}</td>
+                    <td>{{ $supply->unit }}</td>
+                    <td>{{ $supply->quantity }}</td>
+                    <td>{{ number_format($supply->unit_cost, 2) }}</td>
+                    <td>{{ ucfirst($supply->supply_from) }}</td>
+                    <td>{{ $supply->supply_from_quantity }}</td>
+                    <td>{{ $supply->reorder_threshold }}</td>
+                    <td>
+                        <a href="{{ route('admin.edit', $supply->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <form action="{{ route('admin.destroy', $supply->id) }}" method="POST" style="display:inline;">
+                            @csrf @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this item?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    <form method="POST" action="{{ route('logout') }}" class="mt-4">
+        @csrf
+        <button type="submit" class="btn btn-danger">Logout</button>
+    </form>
 </div>
-
-<form method="POST" action="{{ route('logout') }}" class="mt-6">
-    @csrf
-    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">Logout</button>
-</form>
+</body>
+</html>

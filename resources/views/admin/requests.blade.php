@@ -2,11 +2,13 @@
 <html>
 <head>
     <title>Office Requests</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Office Requests</h1>
-    <table border="1">
-        <thead>
+<body class="bg-light">
+<div class="container py-4">
+    <h1 class="mb-4">Office Requests</h1>
+    <table class="table table-bordered table-hover bg-white">
+        <thead class="table-light">
             <tr>
                 <th>ID</th>
                 <th>Request No.</th>
@@ -40,20 +42,21 @@
                     @if($req->status === 'pending')
                         <form method="POST" action="{{ route('admin.requests.accept', $req) }}" style="display:inline;">
                             @csrf
-                            <button type="submit">Accept</button>
+                            <button type="submit" class="btn btn-success btn-sm">Accept</button>
                         </form>
                         <form method="POST" action="{{ route('admin.requests.reject', $req) }}" style="display:inline;">
                             @csrf
-                            <button type="submit">Reject</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Reject</button>
                         </form>
                     @else
-                        {{ ucfirst($req->status) }}
+                        <span class="badge bg-secondary">{{ ucfirst($req->status) }}</span>
                     @endif
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
-    <a href="{{ route('dashboard') }}">Back to Dashboard</a>
+    <a href="{{ route('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
 </body>
 </html>
