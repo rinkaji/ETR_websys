@@ -33,5 +33,6 @@ Route::middleware('auth')->group(function () {
     //Admin Ordered Items
     Route::get('admin/orderedItems/{office?}', [AdminOrderItemController::class, 'showOrderedItems'])->name('admin.orderedItems');
 
+
     Route::resource('admin', AdminController::class);
 });
