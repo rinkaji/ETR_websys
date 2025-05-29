@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminOrderItemController;
 use App\Http\Controllers\RequestController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/requests/{request}/reject', [RequestController::class, 'reject'])->name('admin.requests.reject');
 
     Route::get('/admin/history', [AdminController::class, 'history'])->name('admin.history');
+
+    //Admin Ordered Items
+    Route::get('admin/orderedItems/{office?}', [AdminOrderItemController::class, 'showOrderedItems'])->name('admin.orderedItems');
+
 
     Route::resource('admin', AdminController::class);
 });
