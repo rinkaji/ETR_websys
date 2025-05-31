@@ -20,17 +20,36 @@ class RequestController extends Controller
     // Office: Store new request
     public function store(HttpRequest $request)
     {
+        // Filter out items with quantity <= 0
+        $filteredItems = collect($request->input('items', []))
+            ->filter(function ($item) {
+                return isset($item['quantity']) && $item['quantity'] > 0;
+            })->values()->all();
+
+        if (empty($filteredItems)) {
+            return back()->withInput()->withErrors(['items' => 'Please request at least one item.']);
+        }
+
         $validated = $request->validate([
             'office' => 'required|string|max:255',
             'request_by' => 'required|string|max:255',
             'request_by_designation' => 'required|string|max:255',
-            'items' => 'required|array',
-            'items.*.supply_id' => 'required|exists:supplies,id',
-            'items.*.quantity' => 'required|integer|min:1',
         ]);
+        // Validate filtered items
+        foreach ($filteredItems as $item) {
+            if (
+                !isset($item['supply_id']) ||
+                !\App\Models\Supply::where('id', $item['supply_id'])->exists() ||
+                !isset($item['quantity']) ||
+                !is_numeric($item['quantity']) ||
+                $item['quantity'] < 1
+            ) {
+                return back()->withInput()->withErrors(['items' => 'Invalid item or quantity.']);
+            }
+        }
 
-        DB::transaction(function () use ($request) {
-            $req = request::create([
+        DB::transaction(function () use ($request, $filteredItems) {
+            $req = \App\Models\request::create([
                 'request_id' => uniqid('REQ-'),
                 'status' => 'pending',
                 'office' => $request->office,
@@ -38,14 +57,12 @@ class RequestController extends Controller
                 'request_by_designation' => $request->request_by_designation,
                 'user_id' => auth()->id(),
             ]);
-            foreach ($request->items as $item) {
-                if ($item['quantity'] > 0) {
-                    Request_Item::create([
-                        'request_id' => $req->id,
-                        'supply_id' => $item['supply_id'],
-                        'quantity' => $item['quantity'],
-                    ]);
-                }
+            foreach ($filteredItems as $item) {
+                \App\Models\Request_Item::create([
+                    'request_id' => $req->id,
+                    'supply_id' => $item['supply_id'],
+                    'quantity' => $item['quantity'],
+                ]);
             }
         });
 
