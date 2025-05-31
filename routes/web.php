@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminOrderItemController;
 use App\Http\Controllers\RequestController;
 use Illuminate\Support\Facades\Route;
 

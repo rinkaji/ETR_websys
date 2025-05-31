@@ -51,11 +51,11 @@
                         </ul>
                     </td>
                     <td>{{ $req->created_at->format('Y-m-d H:i') }}</td>
+
                 </tr>
                 @endforeach
             </tbody>
         </table>
-
         <h2 class="h5 mt-4">Supplies Inventory</h2>
         <div class="table-responsive bg-white rounded shadow-sm">
             <table class="table table-bordered table-hover align-middle">
@@ -81,5 +81,4 @@
         </div>
     </div>
     @endsection
-
 </html>
