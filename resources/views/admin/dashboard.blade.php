@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -84,10 +85,10 @@
                     <th>Item</th>
                     <th>Unit</th>
                     <th>Quantity</th>
-                    <th>Total Quantity</th> 
+                    <th>Total Quantity</th>
                     <th>Supply From</th>
                     <th>Unit Cost</th>
-              
+
                     <th>Actions</th>
                 </tr>
             </thead>
