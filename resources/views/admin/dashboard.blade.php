@@ -4,119 +4,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - PSU Urdaneta Supply Office</title>
-    <style>
-        body {
-            font-family: sans-serif;
-        }
-
-        h1,
-        h2 {
-            color: #003366;
-            margin-bottom: 1rem;
-        }
-
-        .button {
-            display: inline-block;
-            background-color: #003366;
-            color: white;
-            padding: 0.5rem 1rem;
-            text-decoration: none;
-            margin-bottom: 1rem;
-            transition: background-color 0.2s ease;
-            border: none;
-        }
-
-        .button:hover {
-            background-color: #002244;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        th,
-        td {
-            border: 1px solid #ccc;
-            padding: 0.75rem;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f3f3f3;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            color: #333;
-        }
-
-        tr:hover {
-            background-color: #f9f9f9;
-        }
-
-        .logout-btn {
-            background-color: #cc0000;
-            color: white;
-            padding: 0.5rem 1rem;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-
-        .logout-btn:hover {
-            background-color: #990000;
-        }
-    </style>
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
-    <h1>Admin Dashboard</h1>
-    <p>Welcome, <strong style="color: #003366;">{{ auth()->user()->name }}</strong></p>
-    <p style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;">Email: {{ auth()->user()->email }}</p>
 
-    <h2>Admin Controls</h2>
+<body class="bg-light">
 
-    <a href="{{ route('admin.create') }}" class="button">Create Supply</a>
-    <a href="{{ route('register') }}" class="button">Register Users</a>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Unit</th>
-                <th>Quantity</th>
-                <th>Purchase Supplies</th>
-                <th>Received Supplies</th>
-                <th>Issued Supplies</th>
-                <th>Inventory End</th>
-                <th>Total Cost</th>
-                <th>Unit Cost</th>
-                <th>Amount</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($supplies as $supply)
-            <tr>
-                <td>{{ $supply->item }}</td>
-                <td>{{ $supply->unit }}</td>
-                <td>{{ $supply->quantity }}</td>
-                <td>{{ $supply->purchase_supplies }}</td>
-                <td>{{ $supply->received_supplies }}</td>
-                <td>{{ $supply->issued }}</td>
-                <td>{{ $supply->inventory_end }}</td>
-                <td>{{ number_format($supply->quantity * $supply->unit_cost, 2) }}</td>
-                <td>{{ number_format($supply->unit_cost, 2) }}</td>
-                <td>{{ number_format($supply->unit_cost, 2) }}</td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+    @extends('layouts.app')
 
-    <form method="POST" action="{{ route('logout') }}" style="margin-top: 1.5rem;">
-        @csrf
-        <button type="submit" class="logout-btn">Logout</button>
+    @section('title', 'Admin Dashboard')
+
+    @section('content')
+    <h1 class="mb-4">Inventory</h1>
+
+    <!-- <div class="mb-3">
+        <a href="{{ route('admin.requests') }}" class="btn btn-success me-2">View Office Requests</a>
+        <a href="{{ route('admin.create') }}" class="btn btn-primary me-2">Create Supply</a>
+        <a href="{{ route('register') }}" class="btn btn-secondary me-2">Register Users</a>
+        <a href="{{ route('admin.history') }}" class="btn btn-warning">View History</a>
+    </div> -->
+
+    <div class="row mb-4">
+        <div class="col">
+            <div class="card text-dark" style="background-color: #f1f1f1; border: none;">
+                <div class="card-body">
+                    <h5 class="card-title">Total Items</h5>
+                    <p class="card-text fs-3">{{ $totalSupplies }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-dark" style="background-color: #f1f1f1; border: none;">
+                <div class="card-body">
+                    <h5 class="card-title">Low Stock</h5>
+                    <p class="card-text fs-3">{{ $lowStockCount }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-dark" style="background-color: #f1f1f1; border: none;">
+                <div class="card-body">
+                    <h5 class="card-title">Pending Requests</h5>
+                    <p class="card-text fs-3">{{ $pendingRequests }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <form method="GET" action="{{ route('dashboard') }}" class="row g-3 mb-3">
+        <div class="col-md-4">
+            <input type="text" name="search" class="form-control" placeholder="Search by name, code, category" value="{{ request('search') }}">
+        </div>
+
+        <div class="col-md-2">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="low_stock" value="1" @if(request('low_stock')) checked @endif>
+                <label class="form-check-label">Low Stock Only</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-outline-primary">Filter</button>
+        </div>
     </form>
-</body>
+
+    @if($lowStockCount > 0)
+    <div class="alert alert-danger">
+        <strong>Low Stock Alert:</strong> Some items are below their reorder threshold!
+    </div>
+    @endif
+
+    <h2 class="h4 mt-4 mb-3">Supplies Inventory</h2>
+    <div class="table-responsive bg-white rounded shadow-sm">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Item</th>
+                    <th>Unit</th>
+                    <th>Quantity</th>
+                    <th>Total Quantity</th>
+                    <th>Supply From</th>
+                    <th>Unit Cost</th>
+
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($supplies as $supply)
+                <tr>
+                    <td>{{ $supply->item }}</td>
+                    <td>{{ $supply->unit }}</td>
+                    <td>{{ $supply->quantity }}</td>
+                    <td>{{ $supply->supply_from_quantity }}</td>
+                    <td>{{ ucfirst($supply->supply_from) }}</td>
+                    <td>{{ number_format($supply->unit_cost, 2) }}</td>
+                    <td>
+                        <a href="{{ route('admin.edit', $supply->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <form action="{{ route('admin.destroy', $supply->id) }}" method="POST" style="display:inline;">
+                            @csrf @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this item?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    @endsection
+
 
 </html>

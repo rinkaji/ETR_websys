@@ -22,7 +22,7 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'office' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|confirmed|min:8',
             'role' => 'required|in:admin,office'
