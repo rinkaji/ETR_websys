@@ -8,6 +8,7 @@ class Supply extends Model
 {
     protected $fillable = [
         'item',
+        'description',
         'unit',
         'quantity',
         'unit_cost',

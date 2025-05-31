@@ -25,14 +25,14 @@ class AdminStockCardController extends Controller
         // logic to get receipts/issues for this month
     }
 
-    public function showStockCard($item)
+    public function showStockCard($item, $description, $unit)
     {
         $monthlyData = collect();
         $start = Carbon::createFromDate(now()->year, 1, 1);
 
         // Get and group request items once
 
-        $supply_items = Supply::where('item', $item)->get();
+        $supply_items = Supply::where(['item' => $item, 'description' => $description, 'unit' => $unit])->get();
 
         $grouped_supply = $supply_items->groupBy(function ($item) {
             return Carbon::parse($item->created_at)->format('F Y');
@@ -91,7 +91,7 @@ class AdminStockCardController extends Controller
             ]);
         }
 
-        return view('admin.stockCard', compact('monthlyData', 'merged_groups'));
+        return view('admin.stockCard', compact('monthlyData', 'merged_groups', 'item', 'description'));
     }
 
 

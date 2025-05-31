@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     //Admin Ordered Items
     // Route::get('admin/orderedItems/{office?}', [AdminOrderItemController::class, 'showOrderedItems'])->name('admin.orderedItems');
     // Route::get('/admin/showSupplies', [AdminStockCardController::class, 'showSupplies'])->name('admin.stockCardList');
-    Route::get('/admin/showStockCard/{item}', [AdminStockCardController::class, 'showStockCard'])->name('admin.stockCard');
+    Route::get('/admin/showStockCard/{item}/{description}/{unit}', [AdminStockCardController::class, 'showStockCard'])->name('admin.stockCard');
 
 
     Route::resource('admin', AdminController::class);

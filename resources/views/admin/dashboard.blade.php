@@ -85,6 +85,7 @@
             <thead class="table-light">
                 <tr>
                     <th>Item</th>
+                    <th>Description</th> <!-- reminder -->
                     <th>Unit</th>
                     <th>Quantity</th>
                     <th>Total Quantity</th>
@@ -98,6 +99,7 @@
                 @foreach($supplies as $supply)
                 <tr>
                     <td>{{ $supply->item }}</td>
+                    <td>{{ $supply->description }}</td>
                     <td>{{ $supply->unit }}</td>
                     <td>{{ $supply->quantity }}</td>
                     <td>{{ $supply->supply_from_quantity }}</td>
@@ -110,6 +112,9 @@
                             <button type="submit" class="btn btn-sm btn-danger"
                                 onclick="return confirm('Delete this item?')">Delete</button>
                         </form>
+                        <a href="{{ route('admin.stockCard', [ 'item' => urlencode($supply->item),
+    'description' => urlencode($supply->description), 'unit' => urlencode($supply->unit)]) }}"
+                            class="btn btn-sm btn-info">View</a>
                     </td>
                 </tr>
                 @endforeach

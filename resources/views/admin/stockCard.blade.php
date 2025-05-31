@@ -1,16 +1,23 @@
-<h1>This is Stock Card Individual</h1>
-
-{{-- <h3>{{$request_items->first()->supply->item}}</h3> --}}
-<h2>Description</h2>
-
 <table border="1">
     <thead>
+        <tr>
+            <th colspan="7">Stock Card <br> PSU-Urdaneta Campus <br> Agency</th>
+        </tr>
+        <tr>
+            <td>Item:</td>
+            <th colspan="2">{{$item}}</th>
+            <td>Description:</td>
+            <th>{{$description}}</th>
+            <td>Stock #:</td>
+            <th></th>
+        </tr>
         <tr>
             <th rowspan="2">Date</th>
             <th rowspan="2">Reference</th>
             <th rowspan="2">Receipt Qty</th>
             <th colspan="2">Issurance</th>
             <th rowspan="2">Balance Qty</th>
+            <th rowspan="2">No. of Days Consume</th>
         </tr>
         <tr>
             <th>Qty</th>
@@ -24,9 +31,13 @@
         @endphp
         @foreach($monthlyData as $data)
         <tr>
-            <td colspan="5">
+            <td colspan="2">
                 <p>Beginning Balance as of {{ $data['month'] }}: {{ $data['beginning_balance'] }}</p>
             </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td></td>
         </tr>
 
@@ -47,7 +58,7 @@
         @if(($items['date'] === $data['month']))
         <tr>
             <td>{{\Carbon\Carbon::parse($items['date'])->format('m/d/Y')}}</td>
-            <td>{{$items['supplies']}}</td>
+            <td></td>
             @php
             $balance += (int)$items['receipt_qty'] ?? 0;
             $balance -= (int)$items['qty'] ?? 0;
@@ -56,6 +67,7 @@
             <td>{{$items['qty']}}</td>
             <td>{{$items['office']}}</td>
             <td>{{$balance}}</td>
+            <td></td>
         </tr>
         @endif
 
