@@ -1,51 +1,122 @@
-<h1 class="text-3xl font-bold mb-4">Admin Dashboard</h1>
-<p class="text-lg">Welcome, <span class="font-semibold">{{ auth()->user()->name }}</span></p>
-<p class="text-sm text-gray-600 mb-6">Email: {{ auth()->user()->email }}</p>
+<!DOCTYPE html>
+<html lang="en">
 
-<h2 class="text-2xl font-semibold mt-8 mb-4">Admin Controls</h2>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - PSU Urdaneta Supply Office</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
 
-<a href="{{ route('admin.create') }}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition mb-6">Create Supply</a>
-<a href="{{ route('register') }}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition mb-6">Register Users</a>
+        h1,
+        h2 {
+            color: #003366;
+            margin-bottom: 1rem;
+        }
 
-<div class="overflow-x-auto bg-white shadow rounded-lg">
-   <table border="1" class="min-w-full table-auto border-collapse">
-    <thead>
-        <tr class="bg-gray-100 text-gray-700 text-left text-sm uppercase tracking-wider">
-            <th class="px-6 py-3 border-b">Item</th>
-            <th class="px-6 py-3 border-b">Unit</th>
-            <th class="px-6 py-3 border-b">Quantity</th>
-            <th class="px-6 py-3 border-b">Purchase Supplies</th>
-            <th class="px-6 py-3 border-b">Received Supplies</th>
-            <th class="px-6 py-3 border-b">Issued Supplies</th>
-            <th class="px-6 py-3 border-b">Inventory End</th>
-            <th class="px-6 py-3 border-b">Total Cost</th>
-            <th class="px-6 py-3 border-b">Unit Cost</th>
-            <th class="px-6 py-3 border-b">Amount</th>
-        </tr>
-    </thead>
-    <tbody class="text-sm text-gray-800">
-        @foreach($supplies as $supply)
-        <tr class="hover:bg-gray-50 transition">
-            <td class="px-6 py-4 border-b">{{ $supply->item }}</td>
-            <td class="px-6 py-4 border-b">{{ $supply->unit }}</td>
-            <td class="px-6 py-4 border-b">{{ $supply->quantity }}</td>
-            <td class="px-6 py-4 border-b">{{ $supply->purchase_supplies }}</td>
-            <td class="px-6 py-4 border-b">{{ $supply->received_supplies }}</td>
-            <td class="px-6 py-4 border-b">{{ $supply->issued }}</td>
-            <td class="px-6 py-4 border-b">{{ $supply->inventory_end }}</td>
-            <td class="px-6 py-4 border-b">{{  number_format($supply->quantity * $supply->unit_cost, 2) }}</td>
-            <td class="px-6 py-4 border-b">{{ number_format($supply->unit_cost, 2) }}</td>
-            <td class="px-6 py-4 border-b">
-                {{number_format($supply->unit_cost, 2) }}
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+        .button {
+            display: inline-block;
+            background-color: #003366;
+            color: white;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            transition: background-color 0.2s ease;
+            border: none;
+        }
 
-</div>
+        .button:hover {
+            background-color: #002244;
+        }
 
-<form method="POST" action="{{ route('logout') }}" class="mt-6">
-    @csrf
-    <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">Logout</button>
-</form>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f3f3f3;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            color: #333;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .logout-btn {
+            background-color: #cc0000;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #990000;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Admin Dashboard</h1>
+    <p>Welcome, <strong style="color: #003366;">{{ auth()->user()->name }}</strong></p>
+    <p style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;">Email: {{ auth()->user()->email }}</p>
+
+    <h2>Admin Controls</h2>
+
+    <a href="{{ route('admin.create') }}" class="button">Create Supply</a>
+    <a href="{{ route('register') }}" class="button">Register Users</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Unit</th>
+                <th>Quantity</th>
+                <th>Purchase Supplies</th>
+                <th>Received Supplies</th>
+                <th>Issued Supplies</th>
+                <th>Inventory End</th>
+                <th>Total Cost</th>
+                <th>Unit Cost</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($supplies as $supply)
+            <tr>
+                <td>{{ $supply->item }}</td>
+                <td>{{ $supply->unit }}</td>
+                <td>{{ $supply->quantity }}</td>
+                <td>{{ $supply->purchase_supplies }}</td>
+                <td>{{ $supply->received_supplies }}</td>
+                <td>{{ $supply->issued }}</td>
+                <td>{{ $supply->inventory_end }}</td>
+                <td>{{ number_format($supply->quantity * $supply->unit_cost, 2) }}</td>
+                <td>{{ number_format($supply->unit_cost, 2) }}</td>
+                <td>{{ number_format($supply->unit_cost, 2) }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+    <form method="POST" action="{{ route('logout') }}" style="margin-top: 1.5rem;">
+        @csrf
+        <button type="submit" class="logout-btn">Logout</button>
+    </form>
+</body>
+
+</html>
