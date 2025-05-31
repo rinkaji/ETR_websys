@@ -18,7 +18,7 @@ class AdminController extends Controller
         // Search & filter
         $query = \App\Models\Supply::query();
         if ($request->filled('search')) {
-            $query->where('item', 'like', '%'.$request->search.'%');
+            $query->where('item', 'like', '%' . $request->search . '%');
         }
         $supplies = $query->get();
 
@@ -26,7 +26,11 @@ class AdminController extends Controller
         $categories = collect(); // empty collection or remove from view
 
         return view('admin.dashboard', compact(
-            'supplies', 'totalSupplies', 'pendingRequests', 'categories', 'lowStockCount'
+            'supplies',
+            'totalSupplies',
+            'pendingRequests',
+            'categories',
+            'lowStockCount'
         ));
     }
 
@@ -39,6 +43,7 @@ class AdminController extends Controller
     {
         $validated = $request->validate([
             'item' => 'required',
+            'description' => 'required',
             'unit' => 'required',
             'quantity' => 'required|numeric',
             'unit_cost' => 'required|numeric',
@@ -66,7 +71,7 @@ class AdminController extends Controller
         // Search & filter
         $query = \App\Models\Supply::query();
         if ($request->filled('search')) {
-            $query->where('item', 'like', '%'.$request->search.'%');
+            $query->where('item', 'like', '%' . $request->search . '%');
         }
         $supplies = $query->get();
 
@@ -74,7 +79,11 @@ class AdminController extends Controller
         $categories = collect();
 
         return view('admin.dashboard', compact(
-            'supplies', 'totalSupplies', 'pendingRequests', 'categories', 'lowStockCount'
+            'supplies',
+            'totalSupplies',
+            'pendingRequests',
+            'categories',
+            'lowStockCount'
         ));
     }
 
@@ -131,7 +140,7 @@ class AdminController extends Controller
             ->get();
 
         // Ensure 'office' is always a string for grouping
-        $requests->each(function($req) {
+        $requests->each(function ($req) {
             if (empty($req->office)) {
                 $req->office = 'Unknown';
             }

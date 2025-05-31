@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('supplies', function (Blueprint $table) {
             $table->id();
             $table->string('item');
+            $table->string('description');
             $table->string('unit');
             $table->integer('quantity');
             $table->decimal('unit_cost', 10, 2);

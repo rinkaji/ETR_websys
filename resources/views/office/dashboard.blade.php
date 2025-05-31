@@ -35,7 +35,8 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach(\App\Models\request::where('user_id', auth()->id())->with('items.supply')->orderBy('created_at', 'desc')->get() as $req)
+                @foreach(\App\Models\request::where('user_id',
+                auth()->id())->with('items.supply')->orderBy('created_at', 'desc')->get() as $req)
                 <tr>
                     <td>{{ $req->id }}</td>
                     <td>{{ $req->request_id }}</td>
@@ -81,4 +82,5 @@
         </div>
     </div>
     @endsection
+
 </html>
