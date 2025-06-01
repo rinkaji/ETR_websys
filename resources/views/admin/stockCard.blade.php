@@ -12,7 +12,6 @@
     /* Padding for item/description row */
     tr:nth-child(2) td,
     tr:nth-child(2) th {
-        padding: 10px;
         vertical-align: bottom;
     }
 
@@ -45,9 +44,9 @@
         </tr>
         <tr>
             <td class="bottom-left">Item:</td>
-            <th colspan="2" class="bottom-left">{{$itemName}}</th>
+            <th colspan="2" class="bottom-left">{{urldecode($itemName)}}</th>
             <td class="bottom-middle">Description:</td>
-            <th class="bottom-left">{{$description}}</th>
+            <th class="bottom-left">{{urldecode($description)}}</th>
             <td class="bottom-right">Stock #:</td>
             <th></th>
         </tr>
@@ -98,5 +97,13 @@
         @endif
         @endforeach
         @endforeach
+
+
     </tbody>
 </table>
+@if (empty($isPdf))
+<a href="{{ route('stockCard.download', ['item' => request('item'), 'description' => request('description'), 'unit' => request('unit')]) }}"
+    class="btn btn-primary" target="_blank">
+    Download as PDF
+</a>
+@endif

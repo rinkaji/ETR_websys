@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminOrderItemController;
 use App\Http\Controllers\AdminStockCardController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\stockCardDownloadController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn() => view('welcome'));
@@ -38,4 +39,6 @@ Route::middleware('auth')->group(function () {
 
 
     Route::resource('admin', AdminController::class);
+
+    Route::get('/stock-card/download', [stockCardDownloadController::class, 'downloadStockCard'])->name('stockCard.download');
 });
