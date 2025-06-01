@@ -89,6 +89,7 @@
                         <label class="form-check-label">Received Supply</label>
                     </div>
                 </div>
+                               
                 <div class="d-flex justify-content-between">
                     <button type="submit" class="btn btn-primary">Create</button>
                     <a href="{{ route('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
