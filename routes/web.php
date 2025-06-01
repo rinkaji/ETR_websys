@@ -36,9 +36,8 @@ Route::middleware('auth')->group(function () {
     // Route::get('admin/orderedItems/{office?}', [AdminOrderItemController::class, 'showOrderedItems'])->name('admin.orderedItems');
     // Route::get('/admin/showSupplies', [AdminStockCardController::class, 'showSupplies'])->name('admin.stockCardList');
     Route::get('/admin/showStockCard/{item}/{description}/{unit}', [AdminStockCardController::class, 'showStockCard'])->name('admin.stockCard');
-
-
     Route::resource('admin', AdminController::class);
-
     Route::get('/stock-card/download', [stockCardDownloadController::class, 'downloadStockCard'])->name('stockCard.download');
+    Route::post('/admin/units', [AdminController::class, 'storeUnit'])->name('units.store');
+
 });

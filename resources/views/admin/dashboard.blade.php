@@ -73,9 +73,9 @@
         </div>
     </form>
 
-    @if($lowStockCount > 0)
+    @if($lowStockActive && $supplies->count() > 0)
     <div class="alert alert-danger">
-        <strong>Low Stock Alert:</strong> Some items are below their reorder threshold!
+        <strong>Low Stock Alert:</strong> There are items below their reorder threshold!
     </div>
     @endif
 
@@ -89,7 +89,7 @@
                     <th>Unit</th>
                     <th>Quantity</th>
                     <th>Total Quantity</th>
-                    <th>Supply From</th>
+                    <th>Fund Cluster</th>
                     <th>Unit Cost</th>
 
                     <th>Actions</th>

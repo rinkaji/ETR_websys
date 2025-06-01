@@ -48,23 +48,28 @@ class RequestController extends Controller
             }
         }
 
-        DB::transaction(function () use ($request, $filteredItems) {
-            $req = \App\Models\request::create([
-                'request_id' => uniqid('REQ-'),
-                'status' => 'pending',
-                'office' => $request->office,
-                'request_by' => $request->request_by,
-                'request_by_designation' => $request->request_by_designation,
-                'user_id' => auth()->id(),
-            ]);
-            foreach ($filteredItems as $item) {
-                \App\Models\Request_Item::create([
-                    'request_id' => $req->id,
-                    'supply_id' => $item['supply_id'],
-                    'quantity' => $item['quantity'],
+        try {
+            \DB::transaction(function () use ($request, $filteredItems) {
+                $req = \App\Models\request::create([
+                    'request_id' => uniqid('REQ-'),
+                    'status' => 'pending',
+                    'office' => $request->office,
+                    'request_by' => $request->request_by,
+                    'request_by_designation' => $request->request_by_designation,
+                    'user_id' => auth()->id(),
                 ]);
-            }
-        });
+                foreach ($filteredItems as $item) {
+                    \App\Models\Request_Item::create([
+                        'request_id' => $req->id,
+                        'supply_id' => $item['supply_id'],
+                        'quantity' => $item['quantity'],
+                    ]);
+                }
+            });
+        } catch (\Throwable $e) {
+            \Log::error('Request creation failed: '.$e->getMessage(), ['trace' => $e->getTraceAsString()]);
+            return back()->withInput()->withErrors(['error' => 'Failed to create request. Please contact admin.']);
+        }
 
         return redirect()->route('dashboard')->with('success', 'Request submitted!');
     }

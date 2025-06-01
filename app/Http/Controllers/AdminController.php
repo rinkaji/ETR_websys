@@ -10,33 +10,38 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
-        // Quick stats
         $totalSupplies = \App\Models\Supply::count();
         $pendingRequests = \App\Models\request::where('status', 'pending')->count();
-        $lowStockCount = \App\Models\Supply::whereColumn('quantity', '<=', 'reorder_threshold')->count();
 
-        // Search & filter
+        // Filter logic
         $query = \App\Models\Supply::query();
         if ($request->filled('search')) {
             $query->where('item', 'like', '%' . $request->search . '%');
         }
+        if ($request->filled('low_stock')) {
+            $query->whereColumn('quantity', '<=', 'reorder_threshold');
+        }
         $supplies = $query->get();
 
-        // For filter dropdowns
-        $categories = collect(); // empty collection or remove from view
+        $lowStockCount = \App\Models\Supply::whereColumn('quantity', '<=', 'reorder_threshold')->count();
+        $lowStockActive = $lowStockCount > 0; // Always true if any item is low
+
+        $categories = collect();
 
         return view('admin.dashboard', compact(
             'supplies',
             'totalSupplies',
             'pendingRequests',
             'categories',
-            'lowStockCount'
+            'lowStockCount',
+            'lowStockActive'
         ));
     }
 
     public function create()
     {
-        return view('admin.create');
+        $units = \App\Models\Unit::all();
+        return view('admin.create', compact('units'));
     }
 
     public function store(Request $request)
@@ -47,7 +52,7 @@ class AdminController extends Controller
             'unit' => 'required',
             'quantity' => 'required|numeric',
             'unit_cost' => 'required|numeric',
-            'supply_from' => 'required',
+            'supply_from' => 'required|in:164,161,184,101',
             'reorder_threshold' => 'required|integer|min:0',
         ]);
 
@@ -63,19 +68,22 @@ class AdminController extends Controller
             return view('dashboard');
         }
 
-        // Quick stats
         $totalSupplies = \App\Models\Supply::count();
         $pendingRequests = \App\Models\request::where('status', 'pending')->count();
-        $lowStockCount = \App\Models\Supply::whereColumn('quantity', '<=', 'reorder_threshold')->count();
 
-        // Search & filter
+        // Filter logic
         $query = \App\Models\Supply::query();
         if ($request->filled('search')) {
             $query->where('item', 'like', '%' . $request->search . '%');
         }
+        if ($request->filled('low_stock')) {
+            $query->whereColumn('quantity', '<=', 'reorder_threshold');
+        }
         $supplies = $query->get();
 
-        // For filter dropdowns
+        $lowStockCount = \App\Models\Supply::whereColumn('quantity', '<=', 'reorder_threshold')->count();
+        $lowStockActive = $lowStockCount > 0; // Always true if any item is low
+
         $categories = collect();
 
         return view('admin.dashboard', compact(
@@ -83,7 +91,8 @@ class AdminController extends Controller
             'totalSupplies',
             'pendingRequests',
             'categories',
-            'lowStockCount'
+            'lowStockCount',
+            'lowStockActive'
         ));
     }
 
@@ -91,7 +100,8 @@ class AdminController extends Controller
     public function edit($id)
     {
         $supply = \App\Models\Supply::findOrFail($id);
-        return view('admin.edit', compact('supply'));
+        $units = \App\Models\Unit::all();
+        return view('admin.edit', compact('supply', 'units'));
     }
 
     public function update(Request $request, $id)
@@ -99,10 +109,11 @@ class AdminController extends Controller
         $supply = \App\Models\Supply::findOrFail($id);
         $validated = $request->validate([
             'item' => 'required',
+            'description' => 'required',
             'unit' => 'required',
             'quantity' => 'required|numeric',
             'unit_cost' => 'required|numeric',
-            'supply_from' => 'required|in:purchased,received',
+            'supply_from' => 'required|in:164,161,184,101',
             'reorder_threshold' => 'required|integer|min:0',
         ]);
         // Do not update supply_from_quantity on update
@@ -120,9 +131,11 @@ class AdminController extends Controller
     public function destroy($id)
     {
         $supply = \App\Models\Supply::findOrFail($id);
+        // Delete related request_items first to avoid foreign key constraint error
+        \App\Models\Request_Item::where('supply_id', $id)->delete();
         $supply->delete();
 
-        AuditLog::create([
+        \App\Models\AuditLog::create([
             'admin_id' => auth()->id(),
             'action' => 'delete_supply',
             'details' => json_encode(['supply_id' => $id]),
@@ -149,5 +162,14 @@ class AdminController extends Controller
         $departments = $requests->groupBy('office');
 
         return view('admin.history', compact('requests', 'departments', 'month'));
+    }
+
+    public function storeUnit(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|unique:units,name',
+        ]);
+        \App\Models\Unit::create($validated);
+        return back()->with('success', 'Unit added!');
     }
 }
