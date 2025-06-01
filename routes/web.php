@@ -38,4 +38,5 @@ Route::middleware('auth')->group(function () {
 
 
     Route::resource('admin', AdminController::class);
+    Route::post('/admin/units', [AdminController::class, 'storeUnit'])->name('units.store');
 });

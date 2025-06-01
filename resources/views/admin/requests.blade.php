@@ -125,7 +125,7 @@
                         </form>
                         <form method="POST" action="{{ route('admin.requests.reject', $req) }}" style="display:inline;">
                             @csrf
-                            <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                            <button type="submit" class="btn btn-danger btn-sm">Decline</button>
                         </form>
                         @else
                         <span class="badge bg-secondary">{{ ucfirst($req->status) }}</span>
