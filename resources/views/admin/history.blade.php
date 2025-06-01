@@ -1,4 +1,5 @@
 <!-- <!DOCTYPE html>
+
 <html>
 <head>
     <title>Request/Usage History</title>
@@ -57,6 +58,7 @@
     <a href="{{ route('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
 </div>
 </body>
+
 </html> -->
 
 

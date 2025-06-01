@@ -56,6 +56,10 @@
                     <input type="text" name="item" class="form-control" required>
                 </div>
                 <div class="mb-3">
+                    <label for="item" class="form-label">Description</label>
+                    <input type="text" name="description" class="form-control" required>
+                </div>
+                <div class="mb-3">
                     <label for="unit" class="form-label">Unit</label>
                     <select name="unit" class="form-select" required>
                         <option value="" disabled selected>Select Unit</option>
@@ -79,6 +83,17 @@
                     <input type="number" name="reorder_threshold" class="form-control" value="0" min="0" required>
                 </div>
                 <div class="mb-3">
+                    <label for="unit" class="form-label">Supply Source</label>
+                    <select name="supply_from" class="form-select" required>
+                        <option value="" disabled selected>Select Unit</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                {{-- <div class="mb-3">
                     <label class="form-label">Supply Source</label><br>
                     <div class="form-check form-check-inline">
                         <input type="radio" name="supply_from" value="purchased" class="form-check-input" required>
@@ -88,8 +103,7 @@
                         <input type="radio" name="supply_from" value="received" class="form-check-input" required>
                         <label class="form-check-label">Received Supply</label>
                     </div>
-                </div>
-                               
+                </div> --}}
                 <div class="d-flex justify-content-between">
                     <button type="submit" class="btn btn-primary">Create</button>
                     <a href="{{ route('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>

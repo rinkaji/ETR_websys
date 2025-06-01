@@ -12,7 +12,8 @@
     <div class="container py-4">
         <h1 class="mb-4">Create Supply Request</h1>
 
-        <form method="POST" action="{{ route('request.store') }}" class="bg-white p-4 rounded shadow-sm" id="requestForm">
+        <form method="POST" action="{{ route('request.store') }}" class="bg-white p-4 rounded shadow-sm"
+            id="requestForm">
             @csrf
 
             <div class="mb-3">
@@ -27,7 +28,8 @@
 
             <div class="mb-3">
                 <label for="request_by_designation" class="form-label">Designation:</label>
-                <input type="text" id="request_by_designation" name="request_by_designation" class="form-control" required />
+                <input type="text" id="request_by_designation" name="request_by_designation" class="form-control"
+                    required />
             </div>
 
             <div class="table-responsive mb-3">
@@ -43,18 +45,14 @@
                         @foreach($supplies as $supply)
                         <tr>
                             <td>
-                                <input type="hidden" name="items[{{ $loop->index }}][supply_id]" value="{{ $supply->id }}" />
+                                <input type="hidden" name="items[{{ $loop->index }}][supply_id]"
+                                    value="{{ $supply->id }}" />
                                 {{ $supply->item }}
                             </td>
                             <td>{{ $supply->quantity }}</td>
                             <td>
-                                <input
-                                    type="number"
-                                    name="items[{{ $loop->index }}][quantity]"
-                                    min="0"
-                                    max="{{ $supply->quantity }}"
-                                    value="0"
-                                    class="form-control"
+                                <input type="number" name="items[{{ $loop->index }}][quantity]" min="0"
+                                    max="{{ $supply->quantity }}" value="0" class="form-control"
                                     aria-label="Request quantity for {{ $supply->item }}" />
                             </td>
                         </tr>
@@ -89,4 +87,5 @@
         });
     </script>
 </body>
+
 </html>

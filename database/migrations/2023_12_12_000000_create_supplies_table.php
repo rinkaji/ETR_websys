@@ -11,10 +11,11 @@ return new class extends Migration
         Schema::create('supplies', function (Blueprint $table) {
             $table->id();
             $table->string('item');
+            $table->string('description');
             $table->string('unit');
             $table->integer('quantity');
             $table->decimal('unit_cost', 10, 2);
-            $table->string('supply_from');
+            $table->integer('supply_from');
             $table->integer('supply_from_quantity');
             $table->integer('reorder_threshold')->default(0);
             $table->timestamps();

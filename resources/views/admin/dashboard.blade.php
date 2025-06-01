@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
+
 <body class="bg-light">
 
 
@@ -56,12 +57,14 @@
 
     <form method="GET" action="{{ route('dashboard') }}" class="row g-3 mb-3">
         <div class="col-md-4">
-            <input type="text" name="search" class="form-control" placeholder="Search by name, code, category" value="{{ request('search') }}">
+            <input type="text" name="search" class="form-control" placeholder="Search by name, code, category"
+                value="{{ request('search') }}">
         </div>
 
         <div class="col-md-2">
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="low_stock" value="1" @if(request('low_stock')) checked @endif>
+                <input class="form-check-input" type="checkbox" name="low_stock" value="1" @if(request('low_stock'))
+                    checked @endif>
                 <label class="form-check-label">Low Stock Only</label>
             </div>
         </div>
@@ -82,12 +85,13 @@
             <thead class="table-light">
                 <tr>
                     <th>Item</th>
+                    <th>Description</th> <!-- reminder -->
                     <th>Unit</th>
                     <th>Quantity</th>
-                    <th>Total Quantity</th> 
+                    <th>Total Quantity</th>
                     <th>Supply From</th>
                     <th>Unit Cost</th>
-              
+
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -95,6 +99,7 @@
                 @foreach($supplies as $supply)
                 <tr>
                     <td>{{ $supply->item }}</td>
+                    <td>{{ $supply->description }}</td>
                     <td>{{ $supply->unit }}</td>
                     <td>{{ $supply->quantity }}</td>
                     <td>{{ $supply->supply_from_quantity }}</td>
@@ -104,8 +109,12 @@
                         <a href="{{ route('admin.edit', $supply->id) }}" class="btn btn-sm btn-warning">Edit</a>
                         <form action="{{ route('admin.destroy', $supply->id) }}" method="POST" style="display:inline;">
                             @csrf @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this item?')">Delete</button>
+                            <button type="submit" class="btn btn-sm btn-danger"
+                                onclick="return confirm('Delete this item?')">Delete</button>
                         </form>
+                        <a href="{{ route('admin.stockCard', [ 'item' => urlencode($supply->item),
+    'description' => urlencode($supply->description), 'unit' => urlencode($supply->unit)]) }}"
+                            class="btn btn-sm btn-info">View</a>
                     </td>
                 </tr>
                 @endforeach
@@ -114,5 +123,6 @@
     </div>
 
     @endsection
+
 
 </html>

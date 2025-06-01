@@ -35,7 +35,8 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach(\App\Models\request::where('user_id', auth()->id())->with('items.supply')->orderBy('created_at', 'desc')->get() as $req)
+                @foreach(\App\Models\request::where('user_id',
+                auth()->id())->with('items.supply')->orderBy('created_at', 'desc')->get() as $req)
                 <tr>
                     <td>{{ $req->id }}</td>
                     <td>{{ $req->request_id }}</td>
@@ -51,11 +52,11 @@
                         </ul>
                     </td>
                     <td>{{ $req->created_at->format('Y-m-d H:i') }}</td>
+
                 </tr>
                 @endforeach
             </tbody>
         </table>
-
         <h2 class="h5 mt-4">Supplies Inventory</h2>
         <div class="table-responsive bg-white rounded shadow-sm">
             <table class="table table-bordered table-hover align-middle">
