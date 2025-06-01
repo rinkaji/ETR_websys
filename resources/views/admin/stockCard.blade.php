@@ -5,7 +5,7 @@
         </tr>
         <tr>
             <td>Item:</td>
-            <th colspan="2">{{$item}}</th>
+            <th colspan="2">{{$itemName}}</th>
             <td>Description:</td>
             <th>{{$description}}</th>
             <td>Stock #:</td>

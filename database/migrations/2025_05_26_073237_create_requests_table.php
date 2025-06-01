@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('released_by')->nullable();
             $table->timestamp('released_date')->nullable();
             $table->string('released_by_designation')->nullable();
+            $table->foreignId('user_id')->constrained('users');
         });
     }
 
