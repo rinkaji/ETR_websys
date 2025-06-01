@@ -36,7 +36,7 @@ class AdminStockCardController extends Controller
         $supply_items = Supply::where(['item' => $item, 'description' => $description, 'unit' => $unit])->get();
 
         $grouped_supply = $supply_items->groupBy(function ($item) {
-            return Carbon::parse($item->created_at)->format('F Y');
+            return $item->created_at;
         });
 
         $formatted_supply = collect();
@@ -61,13 +61,13 @@ class AdminStockCardController extends Controller
             })
             ->get();
         $grouped_items = $request_items->groupBy(function ($items) {
-            return Carbon::parse($items->request->updated_at)->format('F Y');
+            return $items->request->updated_at;
         });
         $formatted_items = collect();
         foreach ($grouped_items as $items) {
             foreach ($items as $item) {
                 $formatted_items->push([
-                    'date' => $item->request->updated_at->format('F Y'),
+                    'date' => $item->request->updated_at,
                     'supplies' => '',
                     'receipt_qty' => '',
                     'qty' => $item->quantity,
@@ -75,7 +75,12 @@ class AdminStockCardController extends Controller
                 ]);
             }
         }
-        $merged_groups = $formatted_supply->merge($formatted_items);
+        $merged_groups = $formatted_supply
+            ->merge($formatted_items)
+            ->sortBy(function ($entry) {
+                return Carbon::parse($entry['date']);
+            })
+            ->values();
 
         // Build monthly data
         for ($i = 0; $i < 12; $i++) {
