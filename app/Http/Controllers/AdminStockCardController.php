@@ -27,6 +27,7 @@ class AdminStockCardController extends Controller
 
     public function showStockCard($item, $description, $unit)
     {
+        $itemName = $item;
         $monthlyData = collect();
         $start = Carbon::createFromDate(now()->year, 1, 1);
 
@@ -91,7 +92,7 @@ class AdminStockCardController extends Controller
             ]);
         }
 
-        return view('admin.stockCard', compact('monthlyData', 'merged_groups', 'item', 'description'));
+        return view('admin.stockCard', compact('monthlyData', 'merged_groups', 'itemName', 'description'));
     }
 
 

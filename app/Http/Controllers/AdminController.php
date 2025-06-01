@@ -47,7 +47,7 @@ class AdminController extends Controller
             'unit' => 'required',
             'quantity' => 'required|numeric',
             'unit_cost' => 'required|numeric',
-            'supply_from' => 'required|in:purchased,received',
+            'supply_from' => 'required',
             'reorder_threshold' => 'required|integer|min:0',
         ]);
 
