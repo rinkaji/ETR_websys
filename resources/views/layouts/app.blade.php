@@ -121,6 +121,15 @@
                 <a href="/dashboard"><img src="{{ asset('images/psu-logo.png') }}" alt="Logo"><a>
                         Supply Office Management
             </div>
+
+            <div class="user-info">
+                <a href="{{route('editAdminDetails')}}"><img
+                        src="https://images.emojiterra.com/google/noto-emoji/unicode-16.0/color/share/1f981.jpg"
+                        alt="Profile" style="object-fit: cover;"></a>
+                <div id="user-details">
+                    <a><b>{{ auth()->user()->office }}</b></a><br>
+                    <a>{{ auth()->user()->email }}</a>
+
             <div id="right-nav-bar">
                 <div id="live-clock"></div>
                 <div class="user-info">
@@ -129,6 +138,7 @@
                         <a><b>{{ auth()->user()->office }}</b></a><br>
                         <a>{{ auth()->user()->email }}</a>
                     </div>
+
                 </div>
             </div>
         </div>
