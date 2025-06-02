@@ -45,7 +45,7 @@ class AdminStockCardController extends Controller
                 $formatted_supply->push([
                     'date' => $key,
                     'supplies' => $supply->supply_from == 'received' ? 'from lingayen' : '',
-                    'receipt_qty' => $supply->quantity,
+                    'receipt_qty' => $supply->supply_from_quantity,
                     'qty' => '',
                     'office' => '',
                 ]);

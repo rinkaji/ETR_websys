@@ -30,7 +30,7 @@ class stockCardDownloadController extends Controller
         ])->get();
 
         $grouped_supply = $supply_items->groupBy(function ($item) {
-            return Carbon::parse($item->created_at)->format('F Y');
+            return $item->created_at;
         });
 
         $formatted_supply = collect();
@@ -38,9 +38,10 @@ class stockCardDownloadController extends Controller
             foreach ($group as $supply) {
                 $formatted_supply->push([
                     'raw_date' => Carbon::parse($supply->created_at)->startOfMonth(),
+                    'arrangeDate' => $supply->created_at,
                     'date' => Carbon::parse($supply->created_at)->format('F Y'),
                     'supplies' => $supply->supply_from == 'received' ? 'from lingayen' : '',
-                    'receipt_qty' => $supply->quantity,
+                    'receipt_qty' => $supply->supply_from_quantity,
                     'qty' => '',
                     'office' => '',
                 ]);
@@ -53,10 +54,11 @@ class stockCardDownloadController extends Controller
             ->get();
 
         $formatted_items = collect();
-        foreach ($request_items->groupBy(fn($item) => Carbon::parse($item->request->updated_at)->format('F Y')) as $group) {
+        foreach ($request_items->groupBy(fn($item) => $item->request->updated_at) as $group) {
             foreach ($group as $item) {
                 $formatted_items->push([
                     'raw_date' => Carbon::parse($item->request->updated_at)->startOfMonth(),
+                    'arrangeDate' => $item->request->updated_at,
                     'date' => Carbon::parse($item->request->updated_at)->format('F Y'),
                     'supplies' => '',
                     'receipt_qty' => '',
@@ -66,7 +68,7 @@ class stockCardDownloadController extends Controller
             }
         }
 
-        $merged_groups = $formatted_supply->merge($formatted_items)->sortBy('raw_date')->values();
+        $merged_groups = $formatted_supply->merge($formatted_items)->sortBy('arrangeDate')->values();
 
         for ($i = 0; $i < 12; $i++) {
             $date = $start->copy()->addMonths($i);
