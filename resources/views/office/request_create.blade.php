@@ -117,14 +117,11 @@
     <script>
         document.getElementById('requestForm').addEventListener('submit', function(e) {
             let hasQuantity = false;
-            // Remove zero-quantity items before submit
             document.querySelectorAll('input[type="number"][name^="items"]').forEach(function(input) {
                 if (parseInt(input.value, 10) > 0) {
                     hasQuantity = true;
                 } else {
-                    // Disable zero-quantity fields so they are not submitted
                     input.disabled = true;
-                    // Also disable the hidden supply_id for this row
                     let hidden = input.closest('tr').querySelector('input[type="hidden"]');
                     if (hidden) hidden.disabled = true;
                 }

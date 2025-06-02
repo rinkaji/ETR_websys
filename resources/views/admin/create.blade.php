@@ -102,6 +102,7 @@
                     <option value="set">set</option>
                 </select>
             </div>
+
             <div class="mb-3">
                 <label for="quantity" class="form-label">Quantity</label>
                 <input type="number" name="quantity" class="form-control" required>
@@ -138,12 +139,12 @@
                 </div> --}}
             <button type="submit" class="btn btn-primary w-100 mt-3 submit-btn">Create supply</button>
             <!-- <div class="d-flex justify-content-between">
+
                     <button type="submit" class="btn btn-primary">Create</button>
                     <a href="{{ route('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
                 </div> -->
         </form>
     </div>
-
     @endsection
 </body>
 

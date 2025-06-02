@@ -14,6 +14,7 @@ class Supply extends Model
         'unit_cost',
         'supply_from',
         'supply_from_quantity',
+        'reorder_threshold',
     ];
 
     public function requestItems()

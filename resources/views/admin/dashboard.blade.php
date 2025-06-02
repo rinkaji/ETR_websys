@@ -132,7 +132,6 @@
         </div>
     </div>
     @endif
-
     <h2 class="h4 mt-5 mb-3">Supplies Inventory</h2>
     <div class="table-responsive bg-white rounded shadow-sm">
         <table class="table table-bordered table-hover align-middle">
@@ -143,7 +142,7 @@
                     <th>Unit</th>
                     <th>Quantity</th>
                     <th>Total Quantity</th>
-                    <th>Supply From</th>
+                    <th>Fund Cluster</th>
                     <th>Unit Cost</th>
 
                     <th>Actions</th>
