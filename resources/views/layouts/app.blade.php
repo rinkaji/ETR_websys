@@ -118,31 +118,52 @@
         <!-- Header -->
         <div class="header">
             <div class="logo">
-                <a href="/dashboard"><img src="{{ asset('images/psu-logo.png') }}" alt="Logo"><a>
-                        Supply Office Management
+                <a href="/dashboard"><img src="{{ asset('images/psu-logo.png') }}" alt="Logo"></a>
+                Supply Office Management
             </div>
 
-            <div class="user-info">
-                <a href="{{route('editAdminDetails')}}"><img
-                        src="https://images.emojiterra.com/google/noto-emoji/unicode-16.0/color/share/1f981.jpg"
-                        alt="Profile" style="object-fit: cover;"></a>
-                <div id="user-details">
-                    <a><b>{{ auth()->user()->office }}</b></a><br>
-                    <a>{{ auth()->user()->email }}</a>
-
-            <div id="right-nav-bar">
-                <div id="live-clock"></div>
+            <div>
                 <div class="user-info">
-                    <img src="https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg" alt="Profile" style="object-fit: cover;">
+                    <div id="right-nav-bar">
+                        <div id="live-clock"></div>
+                    </div>
+                    <a href="{{route('editAdminDetails')}}"><img
+                            src="https://images.emojiterra.com/google/noto-emoji/unicode-16.0/color/share/1f981.jpg"
+                            alt="Profile" style="object-fit: cover;"></a>
                     <div id="user-details">
                         <a><b>{{ auth()->user()->office }}</b></a><br>
                         <a>{{ auth()->user()->email }}</a>
                     </div>
-
                 </div>
+                <script>
+                    function updateClock() {
+                    const now = new Date();
+
+                    const dateOptions = {
+                        weekday: 'short',
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    };
+                    const dateString = now.toLocaleDateString(undefined, dateOptions);
+
+                    const timeString = now.toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        hour12: false
+                    });
+
+                    const clockEl = document.getElementById('live-clock');
+                    if (clockEl) {
+                        clockEl.innerHTML = `${dateString}<br>${timeString}`;
+                    }
+                }
+                setInterval(updateClock, 1000);
+                updateClock();
+                </script>
             </div>
         </div>
-
         <!-- Sidebar + Content ditoo -->
         <div class="content-wrapper">
             <div class="sidebar">
@@ -153,35 +174,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function updateClock() {
-            const now = new Date();
-
-            const dateOptions = {
-                weekday: 'short',
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-            };
-            const dateString = now.toLocaleDateString(undefined, dateOptions);
-
-            const timeString = now.toLocaleTimeString([], {
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: false
-            });
-
-            const clockEl = document.getElementById('live-clock');
-            if (clockEl) {
-                clockEl.innerHTML = `${dateString}<br>${timeString}`;
-            }
-        }
-
-        setInterval(updateClock, 1000);
-        updateClock();
-    </script>
 </body>
 
 </html>
