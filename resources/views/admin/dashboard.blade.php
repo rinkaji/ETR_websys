@@ -17,6 +17,13 @@
     @section('title', 'Admin Dashboard')
 
     @section('content')
+
+
+    <!--Update UI-->
+    @if (session('success'))
+    <span>{{session('success')}}</span>
+    @endif
+
     <h1 class="mb-4">Inventory</h1>
 
     <!-- <div class="mb-3">

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminDetailsEditController;
 use App\Http\Controllers\AdminOrderItemController;
 use App\Http\Controllers\AdminStockCardController;
 use App\Http\Controllers\RequestController;
@@ -31,13 +32,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/requests/{request}/reject', [RequestController::class, 'reject'])->name('admin.requests.reject');
 
     Route::get('/admin/history', [AdminController::class, 'history'])->name('admin.history');
+    Route::get('/admin/editDetails', [AdminDetailsEditController::class, 'editAdmin'])->name('editAdminDetails');
+    Route::post('/admin/updateDetails', [AdminDetailsEditController::class, 'updateAdminDetails'])->name('updateAdminDetails');
+    Route::get('/stock-card/download', [stockCardDownloadController::class, 'downloadStockCard'])->name('stockCard.download');
+    Route::post('/admin/units', [AdminController::class, 'storeUnit'])->name('units.store');
 
     //Admin Ordered Items
     // Route::get('admin/orderedItems/{office?}', [AdminOrderItemController::class, 'showOrderedItems'])->name('admin.orderedItems');
     // Route::get('/admin/showSupplies', [AdminStockCardController::class, 'showSupplies'])->name('admin.stockCardList');
     Route::get('/admin/showStockCard/{item}/{description}/{unit}', [AdminStockCardController::class, 'showStockCard'])->name('admin.stockCard');
     Route::resource('admin', AdminController::class);
-    Route::get('/stock-card/download', [stockCardDownloadController::class, 'downloadStockCard'])->name('stockCard.download');
-    Route::post('/admin/units', [AdminController::class, 'storeUnit'])->name('units.store');
-
 });
