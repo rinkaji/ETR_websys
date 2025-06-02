@@ -6,6 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-size: 0.9rem !important;
+        }
+
+        h1 {
+            font-weight: 900 !important;
+        }
+
+        h2 {
+            font-weight: 600 !important;
+            margin-bottom: 15px !important;
+            color: #1D70B8 !important;
+        }
+    </style>
 </head>
 
 <body class="bg-light">
@@ -14,15 +29,14 @@
     @extends('office-layouts.app')
 
     @section('content')
+    <h1 class="mb-4">Office Dashboard</h1>
+    <p>Welcome. This is the dedicated portal for your department/office to create a request from the Supply Office.</strong></p>
     <div class="container py-4">
-        <h1 class="mb-4">Office Dashboard</h1>
-        <p>Welcome. This is your dedicated portal to create a request from the Supply Office.</strong></p>
-
         <!-- <a href="{{ route('request.create') }}" class="btn btn-primary mb-3">Create Supply Request</a> -->
 
         <h2 class="h5 mt-4">My Requests</h2>
         <table class="table table-bordered table-hover bg-white">
-            <thead class="table-light">
+            <thead class="table-dark">
                 <tr>
                     <th>ID</th>
                     <th>Request No.</th>
@@ -57,10 +71,11 @@
                 @endforeach
             </tbody>
         </table>
-        <h2 class="h5 mt-4">Supplies Inventory</h2>
+
+        <h2 class="h5 mt-4">Real-Time Supply Availability</h2>
         <div class="table-responsive bg-white rounded shadow-sm">
             <table class="table table-bordered table-hover align-middle">
-                <thead class="table-light">
+                <thead class="table-dark">
                     <tr>
                         <th>Item</th>
                         <th>Unit</th>

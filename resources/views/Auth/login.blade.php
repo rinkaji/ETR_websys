@@ -16,7 +16,7 @@
             body {
                 margin: 0;
                 padding: 0;
-                background-color: #0A28D8;
+                background-color: #1D70B8;
                 font-family: 'Inter', sans-serif;
                 display: flex;
                 justify-content: center;
@@ -53,7 +53,7 @@
             button {
                 width: 100%;
                 padding: 0.75rem;
-                background-color: #0A28D8;
+                background-color: #1D70B8;
                 color: white;
                 border: none;
                 border-radius: 5px;
