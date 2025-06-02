@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
-            $table->string('request_id')->unique();
+            $table->string('request_id')->nullable();
             $table->enum('status', ['pending', 'accepted'])->default('pending');
             $table->string('office');
             $table->string('request_by');
-            $table->string('request_by_designation');
-            $table->timestamps();
+            $table->string('request_by_designation'); // <-- add this line
 
             $table->string('received_by')->nullable();
             $table->timestamp('received_date')->nullable();
@@ -28,6 +27,7 @@ return new class extends Migration
             $table->timestamp('released_date')->nullable();
             $table->string('released_by_designation')->nullable();
             $table->foreignId('user_id')->constrained('users');
+            $table->timestamps();
         });
     }
 
