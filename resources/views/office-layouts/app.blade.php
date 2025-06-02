@@ -24,7 +24,7 @@
 
         .header {
             height: 80px;
-            background-color: #0A28D8;
+            background-color: #1D70B8;
             color: white;
             display: flex;
             align-items: center;
@@ -64,7 +64,7 @@
 
         .sidebar {
             width: 250px;
-            background-color: #0A28D8;
+            background-color: #1D70B8;
             padding: 1rem;
             color: white;
             border-top-left-radius: 13px;
@@ -96,6 +96,18 @@
             line-height: 97%;
             font-size: medium;
         }
+
+        #right-nav-bar {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            line-height: 98%;
+        }
+
+        #live-clock {
+            text-align: right;
+            font-weight: 500;
+        }
     </style>
 </head>
 
@@ -108,11 +120,14 @@
                 <a href="/dashboard"><img src="{{ asset('images/psu-logo.png') }}" alt="Logo"><a>
                         Supply Office Management
             </div>
-            <div class="user-info">
-                <img src="https://images.emojiterra.com/google/noto-emoji/unicode-16.0/color/share/1f981.jpg" alt="Profile" style="object-fit: cover;">
-                <div id="user-details">
-                    <a><b>{{ auth()->user()->office }}</b></a><br>
-                    <a>{{ auth()->user()->email }}</a>
+            <div id="right-nav-bar">
+                <div id="live-clock"></div>
+                <div class="user-info">
+                    <img src="https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg" alt="Profile" style="object-fit: cover;">
+                    <div id="user-details">
+                        <a><b>{{ auth()->user()->office }}</b></a><br>
+                        <a>{{ auth()->user()->email }}</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -126,7 +141,35 @@
                 @yield('content')
             </div>
         </div>
-    </div>
+
+        <script>
+            function updateClock() {
+                const now = new Date();
+
+                const dateOptions = {
+                    weekday: 'short',
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                };
+                const dateString = now.toLocaleDateString(undefined, dateOptions);
+
+                const timeString = now.toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false
+                });
+
+                const clockEl = document.getElementById('live-clock');
+                if (clockEl) {
+                    clockEl.innerHTML = `${dateString}<br>${timeString}`;
+                }
+            }
+
+            setInterval(updateClock, 1000);
+            updateClock();
+        </script>
 </body>
 
 </html>
