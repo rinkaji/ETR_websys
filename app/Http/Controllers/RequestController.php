@@ -51,16 +51,19 @@ class RequestController extends Controller
         try {
             \DB::transaction(function () use ($request, $filteredItems) {
                 $req = \App\Models\request::create([
-                    'request_id' => uniqid('REQ-'),
                     'status' => 'pending',
                     'office' => $request->office,
                     'request_by' => $request->request_by,
                     'request_by_designation' => $request->request_by_designation,
                     'user_id' => auth()->id(),
                 ]);
+                // Set request_id after creation
+                $req->request_id = now()->format('m-d-') . str_pad($req->id, 4, '0', STR_PAD_LEFT);
+                $req->save();
+
                 foreach ($filteredItems as $item) {
                     \App\Models\Request_Item::create([
-                        'request_id' => $req->id,
+                        'request_id' => $req->id, // <-- add this line
                         'supply_id' => $item['supply_id'],
                         'quantity' => $item['quantity'],
                     ]);

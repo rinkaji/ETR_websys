@@ -93,16 +93,24 @@
             </div>
             <div class="mb-3">
                 <label for="unit" class="form-label">Unit</label>
-                <select name="unit" class="form-select" required>
-                    <option value="" disabled selected>Select Unit</option>
-                    <option value="reams">reams</option>
-                    <option value="piece">piece</option>
-                    <option value="bottle">bottle</option>
-                    <option value="box">box</option>
-                    <option value="set">set</option>
-                </select>
-            </div>
+                <div class="input-group">
+                    <select name="unit" id="unit" class="form-select" required>
+                        <option value="" disabled selected>Select Unit</option>
+                        <option value="reams">reams</option>
+                        <option value="pcs">pcs</option>
+                        <option value="bottle">bottle</option>
+                        <option value="box">box</option>
+                        @foreach($units as $unit)
 
+                        <option value="{{ $unit->name }}">{{ $unit->name }}</option>
+                        @endforeach
+                    </select>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                        data-bs-target="#addUnitModal">
+                        Add Unit
+                    </button>
+                </div>
+            </div>
             <div class="mb-3">
                 <label for="quantity" class="form-label">Quantity</label>
                 <input type="number" name="quantity" class="form-control" required>
@@ -116,36 +124,44 @@
                 <input type="number" name="reorder_threshold" class="form-control" value="0" min="0" required>
             </div>
             <div class="mb-3">
-                <label for="unit" class="form-label">Supply Source</label>
+                <label for="unit" class="form-label">Fund Cluster</label>
                 <select name="supply_from" class="form-select" required>
-                    <option value="" disabled selected>Select Unit</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option value="" disabled selected>Select Fund Cluster</option>
+                    <option value="164">164</option>
+                    <option value="161">161</option>
+                    <option value="184">184</option>
+                    <option value="101">101</option>
                 </select>
             </div>
-            {{-- <div class="mb-3">
-                    <label class="form-label">Supply Source</label><br>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" name="supply_from" value="purchased" class="form-check-input" required>
-                        <label class="form-check-label">Purchased Supply</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" name="supply_from" value="received" class="form-check-input" required>
-                        <label class="form-check-label">Received Supply</label>
-                    </div>
-                </div> --}}
-            <button type="submit" class="btn btn-primary w-100 mt-3 submit-btn">Create supply</button>
-            <!-- <div class="d-flex justify-content-between">
-
-                    <button type="submit" class="btn btn-primary">Create</button>
-                    <a href="{{ route('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
-                </div> -->
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a href="{{ route('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+            </div>
         </form>
     </div>
+
+    <div class="modal fade" id="addUnitModal" tabindex="-1" aria-labelledby="addUnitModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form method="POST" action="{{ route('units.store') }}">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addUnitModalLabel">Add New Unit</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" name="name" class="form-control" placeholder="Unit name" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Add Unit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     @endsection
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 
 </html>

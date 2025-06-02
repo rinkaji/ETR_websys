@@ -84,7 +84,8 @@
                 <table class="table table-bordered table-hover align-middle">
                     <thead class="table-dark">
                         <tr>
-                            <th scope="col">Supply</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Description</th>
                             <th scope="col">Available</th>
                             <th scope="col">Request Quantity</th>
                         </tr>
@@ -96,6 +97,9 @@
                                 <input type="hidden" name="items[{{ $loop->index }}][supply_id]"
                                     value="{{ $supply->id }}" />
                                 {{ $supply->item }}
+                            </td>
+                             <td>
+                                {{ $supply->description }}
                             </td>
                             <td>{{ $supply->quantity }}</td>
                             <td>
