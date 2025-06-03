@@ -116,10 +116,13 @@
 
         <!-- Header -->
         <div class="header">
-            <div class="logo">
-                <a href="/dashboard"><img src="{{ asset('images/psu-logo.png') }}" alt="Logo"><a>
-                        Supply Office Management
-            </div>
+         <div class="logo">
+    <a href="/dashboard">
+        <img src="{{ asset('images/white.png') }}" alt="Logo" style="width: 100px; height: 100px; object-fit: contain;">
+    </a>
+    Supply Office Management
+</div>
+
             <div id="right-nav-bar">
                 <div id="live-clock"></div>
                 <div class="user-info">

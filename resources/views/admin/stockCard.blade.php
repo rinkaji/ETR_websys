@@ -35,7 +35,45 @@
         vertical-align: middle;
         text-align: center;
     }
+
+     .icon-crud {
+            height: 12px !important;
+            margin-right: 8px;
+        }
 </style>
+
+@if (empty($isPdf))
+<!-- Back button at the top -->
+<a href="{{ route('dashboard') }}"
+   style="
+     display: inline-flex;
+     align-items: center;
+     gap: 6px;
+     background-color: white;  /* white background */
+     color: black;             /* black text */
+     padding: 8px 16px;
+     border-radius: 6px;
+     font-weight: 600;
+     font-size: 14px;
+     font-family: Arial, Helvetica, sans-serif;
+     text-decoration: none;
+     border: none;
+     cursor: pointer;
+     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+     transition: background-color 0.3s ease;
+     margin-bottom: 16px;
+     width: fit-content;
+     border: 1px solid #ddd;
+   "
+   onmouseover="this.style.backgroundColor='#f0f0f0'"
+   onmouseout="this.style.backgroundColor='white'"
+>
+    <img src="{{ asset('images/back_icon.png') }}" alt="Back Icon" style="width:16px; height:16px;">
+    Back to Dashboard
+</a>
+@endif
+
+
 
 <table border="1">
     <thead>
@@ -103,7 +141,33 @@
 </table>
 @if (empty($isPdf))
 <a href="{{ route('stockCard.download', ['item' => request('item'), 'description' => request('description'), 'unit' => request('unit')]) }}"
-    class="btn btn-primary" target="_blank">
+   target="_blank"
+   style="
+     display: inline-flex;
+     align-items: center;
+     gap: 8px;
+     background-color: #0d6efd;
+     color: white;
+     padding: 12px 20px;
+     border-radius: 6px;
+     font-weight: 600;
+     font-size: 14px;
+     font-family: Arial, Helvetica, sans-serif;
+     text-decoration: none;
+     border: none;
+     cursor: pointer;
+     box-shadow: 0 2px 6px rgba(13,110,253,0.4);
+     transition: background-color 0.3s ease;
+     margin-top: 16px;
+   "
+   onmouseover="this.style.backgroundColor='#0b5ed7'"
+   onmouseout="this.style.backgroundColor='#0d6efd'"
+>
+    <img src="{{ asset('images/printer-stroke-rounded.svg') }}" alt="Print Icon" style="width:20px; height:20px;">
     Download as PDF
 </a>
+
+
+
+
 @endif
