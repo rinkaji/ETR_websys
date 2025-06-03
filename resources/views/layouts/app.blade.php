@@ -118,9 +118,12 @@
         <!-- Header -->
         <div class="header">
             <div class="logo">
-                <a href="/dashboard"><img src="{{ asset('images/psu-logo.png') }}" alt="Logo"></a>
-                Supply Office Management
-            </div>
+    <a href="/dashboard">
+        <img src="{{ asset('images/white.png') }}" alt="Logo" style="width: 80px; height: 80px; object-fit: contain;">
+    </a>
+    Supply Office Management
+</div>
+
 
             <div>
                 <div class="user-info">
@@ -128,7 +131,7 @@
                         <div id="live-clock"></div>
                     </div>
                     <a href="{{route('editAdminDetails')}}"><img
-                            src="https://images.emojiterra.com/google/noto-emoji/unicode-16.0/color/share/1f981.jpg"
+                            src="https://static.vecteezy.com/system/resources/previews/009/292/244/non_2x/default-avatar-icon-of-social-media-user-vector.jpg"
                             alt="Profile" style="object-fit: cover;"></a>
                     <div id="user-details">
                         <a><b>{{ auth()->user()->office }}</b></a><br>
