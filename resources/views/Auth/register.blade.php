@@ -57,11 +57,11 @@
 
 <body>
 
-    @extends('layouts.app')
+    {{-- @extends('layouts.app')
 
     @section('title', 'Admin Dashboard')
 
-    @section('content')
+    @section('content') --}}
 
 
     <div class="card-custom">
@@ -115,7 +115,7 @@
     </div>
 
 
-    @endsection
+    {{-- @endsection --}}
 
 </body>
 
