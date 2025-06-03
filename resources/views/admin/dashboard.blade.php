@@ -152,6 +152,7 @@
                     <th>Total Quantity</th>
                     <th>Fund Cluster</th>
                     <th>Unit Cost</th>
+                    <th>Amount</th>
 
                     <th>Actions</th>
                 </tr>
@@ -166,6 +167,7 @@
                     <td>{{ $supply->supply_from_quantity }}</td>
                     <td>{{ ucfirst($supply->supply_from) }}</td>
                     <td>{{ number_format($supply->unit_cost, 2) }}</td>
+                    <td>{{ number_format($supply->supply_from_quantity * $supply->unit_cost, 2) }}</td>
                     <td>
                         <a href="{{ route('admin.edit', $supply->id) }}" class="btn btn-sm btn-warning action-btn edit-btn"><img class="icon-crud" src="{{ asset('images/edit-icon.svg') }}">Edit</a>
                         <form action="{{ route('admin.destroy', $supply->id) }}" method="POST" style="display:inline;">

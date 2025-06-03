@@ -1,5 +1,3 @@
-<h1>This is edit admin details page</h1>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,9 +27,7 @@
         }
 
         h1 {
-            text-align: center;
             color: #0A28D8;
-            margin-bottom: 1.5rem;
         }
     </style>
 </head>
@@ -40,15 +36,31 @@
 
     <div class="container">
         <div class="card-custom">
-            <h1>Update Admin Details</h1>
-            {{-- <p>The created account will be used by an office or department to submit requests to the Supply Office.
-            </p> --}}
-
-            {{-- @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
+            <div class="d-flex align-items-center gap-3 mb-4">
+              <a href="{{ route('dashboard') }}"
+                style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 6px;
+                    background-color: white;
+                    color: black;
+                    padding: 8px 16px;
+                    border-radius: 6px;
+                    font-weight: 600;
+                    font-size: 14px;
+                    font-family: Arial, Helvetica, sans-serif;
+                    text-decoration: none;
+                    border: 1px solid #ddd;
+                    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+                    transition: background-color 0.3s ease;
+                "
+                    onmouseover="this.style.backgroundColor='#f0f0f0'"
+                    onmouseout="this.style.backgroundColor='white'">
+                    <img src="{{ asset('images/back_icon.png') }}" alt="Back Icon" style="width:16px; height:16px;">
+                </a>
+                <h1 class="mb-0" style="font-size: 2.5rem;">Update Admin Details</h1>
             </div>
-            @endif --}}
+
 
             @if ($errors->any())
             <div class="alert alert-danger">

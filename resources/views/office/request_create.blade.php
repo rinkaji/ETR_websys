@@ -63,9 +63,9 @@
             id="requestForm">
             @csrf
 
-            <div class="mb-3">
+           <div class="mb-3">
                 <label for="office" class="form-label">Office</label>
-                <input type="text" id="office" name="office" class="form-control" required />
+                <input type="text" id="office" name="office" class="form-control" required value="{{ old('office', auth()->check() ? auth()->user()->office : '') }}" />
             </div>
 
             <div class="mb-3">
