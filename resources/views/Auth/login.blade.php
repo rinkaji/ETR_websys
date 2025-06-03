@@ -91,13 +91,13 @@
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            <div>
+            {{-- <div>
                 <label for="role">Role</label>
                 <select name="role" required>
                     <option value="admin">Admin</option>
                     <option value="office">Office</option>
                 </select>
-            </div>
+            </div> --}}
             <div>
                 <label for="email">Email</label>
                 <input type="email" name="email" value="{{ old('email') }}" required>
