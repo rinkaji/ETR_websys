@@ -135,7 +135,7 @@
             <td colspan="12" style="padding-top: 70px;">
                 <table width="100%" style="text-align: center;">
                     <tr>
-                        <td><b>JOJE A. UBANDO</b><br><span>Supply Staff</span></td>
+                        <td><b>{{auth()->user()->office}}</b><br><span>Supply Staff</span></td>
                         <td><b>ERNOMOBILLE M. PLACO</b><br><span>Campus Supply Officer</span></td>
                         <td><b>CHENNA ANNE C. LANDINGIN</b><br><span>Campus Accountant</span></td>
                         <td><b>ROY C. FERRER, PhD</b><br><span>Campus Executive Officer</span></td>
