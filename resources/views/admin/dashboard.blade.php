@@ -85,43 +85,47 @@
             <thead class="table-light">
                 <tr>
                     <th>Item</th>
-                    <th>Description</th> <!-- reminder -->
+                    <th>Description</th>
                     <th>Unit</th>
                     <th>Quantity</th>
                     <th>Total Quantity</th>
                     <th>Fund Cluster</th>
                     <th>Unit Cost</th>
-
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($supplies as $supply)
-                <tr>
-                    <td>{{ $supply->item }}</td>
-                    <td>{{ $supply->description }}</td>
-                    <td>{{ $supply->unit }}</td>
-                    <td>{{ $supply->quantity }}</td>
-                    <td>{{ $supply->supply_from_quantity }}</td>
-                    <td>{{ ucfirst($supply->supply_from) }}</td>
-                    <td>{{ number_format($supply->unit_cost, 2) }}</td>
-                    <td>
-                        <a href="{{ route('admin.edit', $supply->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                        <form action="{{ route('admin.destroy', $supply->id) }}" method="POST" style="display:inline;">
-                            @csrf @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger"
-                                onclick="return confirm('Delete this item?')">Delete</button>
-                        </form>
-                        <a href="{{ route('admin.stockCard', [ 'item' => urlencode($supply->item),
-    'description' => urlencode($supply->description), 'unit' => urlencode($supply->unit)]) }}"
-                            class="btn btn-sm btn-info">View</a>
-                    </td>
-                </tr>
-                @endforeach
+                @if(isset($supplies) && $supplies->count())
+                    @foreach($supplies as $supply)
+                    <tr>
+                        <td>{{ $supply->item }}</td>
+                        <td>{{ $supply->description }}</td>
+                        <td>{{ $supply->unit }}</td>
+                        <td>{{ $supply->quantity }}</td>
+                        <td>{{ $supply->supply_from_quantity }}</td>
+                        <td>{{ ucfirst($supply->supply_from) }}</td>
+                        <td>{{ number_format($supply->unit_cost, 2) }}</td>
+                        <td>
+                            <a href="{{ route('admin.edit', $supply->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                            <form action="{{ route('admin.destroy', $supply->id) }}" method="POST" style="display:inline;">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger"
+                                    onclick="return confirm('Delete this item?')">Delete</button>
+                            </form>
+                            <a href="{{ route('admin.stockCard', [ 'item' => urlencode($supply->item),
+        'description' => urlencode($supply->description), 'unit' => urlencode($supply->unit)]) }}"
+                                class="btn btn-sm btn-info">View</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td colspan="8" class="text-center">No supplies found.</td>
+                    </tr>
+                @endif
             </tbody>
         </table>
     </div>
-
     @endsection
 
 

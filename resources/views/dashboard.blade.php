@@ -9,7 +9,7 @@
 <body class="bg-light">
     @auth
         @if(auth()->user()->role === 'admin')
-            @include('admin.dashboard', ['supplies' => \App\Models\Supply::all()])
+            @include('admin.dashboard')
         @else
             @include('office.dashboard')
         @endif

@@ -64,11 +64,11 @@
                     <div class="input-group">
                         <select name="unit" id="unit" class="form-select" required>
                             <option value="" disabled selected>Select Unit</option>
-                            @foreach($units as $unit)
-                                <option value="reams">reams</option>
+                             <option value="reams">reams</option>
                                 <option value="reams">pcs</option>
                                 <option value="reams">bottle</option>
                                 <option value="reams">box</option>
+                            @foreach($units as $unit)
                                 <option value="{{ $unit->name }}">{{ $unit->name }}</option>
                             @endforeach
                         </select>

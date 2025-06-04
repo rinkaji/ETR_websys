@@ -37,10 +37,11 @@
                     <thead class="table-light">
                         <tr>
                             <th scope="col">Supply</th>
+                            <th scope="col">Description</th>
                             <th scope="col">Available</th>
                             <th scope="col">Request Quantity</th>
-                        </tr>
-                    </thead>
+                              </tr>
+                       </thead>
                     <tbody>
                         @foreach($supplies as $supply)
                         <tr>
@@ -48,6 +49,9 @@
                                 <input type="hidden" name="items[{{ $loop->index }}][supply_id]"
                                     value="{{ $supply->id }}" />
                                 {{ $supply->item }}
+                            </td>
+                            <td>
+                                {{ $supply->description }}
                             </td>
                             <td>{{ $supply->quantity }}</td>
                             <td>
