@@ -50,6 +50,7 @@ class AdminController extends Controller
             'item' => 'required',
             'description' => 'required',
             'unit' => 'required',
+            'type' => 'required',
             'quantity' => 'required|numeric',
             'unit_cost' => 'required|numeric',
             'supply_from' => 'required|in:164,161,184,101',

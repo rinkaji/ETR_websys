@@ -27,17 +27,17 @@ class LoginController extends Controller
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-            'role' => 'required|in:admin,office'
+            // 'role' => 'required|in:admin,office'
         ]);
 
         if ($this->authModel->loginUser($credentials)) {
-            $user = Auth::user();
-            if ($user->role !== $request->role) {
-                $this->authModel->logoutUser();
-                return back()->withErrors([
-                    'role' => 'Invalid role selected for this account'
-                ]);
-            }
+            // $user = Auth::user();
+            // if ($user->role !== $request->role) {
+            //     $this->authModel->logoutUser();
+            //     return back()->withErrors([
+            //         'role' => 'Invalid role selected for this account'
+            //     ]);
+            // }
             return redirect()->route('dashboard');
         }
 
