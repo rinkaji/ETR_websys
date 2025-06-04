@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
 
     //Admin Ordered Items
     Route::get('/admin/overallStockCard', [AdminOverallStockCardController::class, 'showOverallStockCard'])->name('admin.overallStockCard');
+    Route::get('/admin/downloadAllStockCard', [AdminOverallStockCardController::class, 'downloadInventoryReport'])->name('stockCardAll.download');
     Route::get('/admin/showStockCard/{item}/{description}/{unit}', [AdminStockCardController::class, 'showStockCard'])->name('admin.stockCard');
     Route::resource('admin', AdminController::class);
 });

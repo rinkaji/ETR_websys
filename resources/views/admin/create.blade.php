@@ -88,6 +88,15 @@
                 <input type="text" name="item" class="form-control" required>
             </div>
             <div class="mb-3">
+                <label for="type" class="form-label">Type</label>
+                <select name="type" class="form-select" required>
+                    <option value="" disabled selected>Select Type</option>
+                    <option value="Office Supplies">Office Supplies</option>
+                    <option value="Janitorial Supplies">Janitorial Supplies</option>
+                    <option value="Medical Supplies">Medical Supplies</option>
+                </select>
+            </div>
+            <div class="mb-3">
                 <label for="item" class="form-label">Description</label>
                 <input type="text" name="description" class="form-control" required>
             </div>
