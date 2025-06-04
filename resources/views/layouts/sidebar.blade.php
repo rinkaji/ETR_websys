@@ -15,7 +15,8 @@
         <li class="nav-item">
             <div class="d-flex align-items-center gap-2">
                 <img class="icon" src="{{ asset('images/check-list.svg') }}">
-                <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                <a href="{{ route('admin.dashboard') }}"
+                    class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                     Inventory
                 </a>
             </div>
@@ -23,7 +24,8 @@
         <li class="nav-item">
             <div class="d-flex align-items-center gap-2">
                 <img class="icon" src="{{ asset('images/return-request.svg') }}">
-                <a href="{{ route('admin.requests') }}" class="nav-link {{ request()->routeIs('admin.requests') ? 'active' : '' }}">
+                <a href="{{ route('admin.requests') }}"
+                    class="nav-link {{ request()->routeIs('admin.requests') ? 'active' : '' }}">
                     Requests
                 </a>
             </div>
@@ -31,7 +33,8 @@
         <li class="nav-item">
             <div class="d-flex align-items-center gap-2">
                 <img class="icon" src="{{ asset('images/add-square.svg') }}">
-                <a href="{{ route('admin.create') }}" class="nav-link {{ request()->routeIs('admin.create') ? 'active' : '' }}">
+                <a href="{{ route('admin.create') }}"
+                    class="nav-link {{ request()->routeIs('admin.create') ? 'active' : '' }}">
                     Create Supply
                 </a>
             </div>
@@ -47,8 +50,18 @@
         <li class="nav-item">
             <div class="d-flex align-items-center gap-2">
                 <img class="icon" src="{{ asset('images/transaction-history.svg') }}">
-                <a href="{{ route('admin.history') }}" class="nav-link {{ request()->routeIs('admin.history') ? 'active' : '' }}">
+                <a href="{{ route('admin.history') }}"
+                    class="nav-link {{ request()->routeIs('admin.history') ? 'active' : '' }}">
                     View History
+                </a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <div class="d-flex align-items-center gap-2">
+                <img class="icon" src="{{ asset('images/transaction-history.svg') }}">
+                <a href="{{ route('admin.overallStockCard') }}"
+                    class="nav-link {{ request()->routeIs('admin.history') ? 'active' : '' }}">
+                    Stock Card
                 </a>
             </div>
         </li>

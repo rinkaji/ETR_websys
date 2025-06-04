@@ -36,16 +36,15 @@
         text-align: center;
     }
 
-     .icon-crud {
-            height: 12px !important;
-            margin-right: 8px;
-        }
+    .icon-crud {
+        height: 12px !important;
+        margin-right: 8px;
+    }
 </style>
 
 @if (empty($isPdf))
 <!-- Back button at the top -->
-<a href="{{ route('dashboard') }}"
-   style="
+<a href="{{ route('dashboard') }}" style="
      display: inline-flex;
      align-items: center;
      gap: 6px;
@@ -64,10 +63,7 @@
      margin-bottom: 16px;
      width: fit-content;
      border: 1px solid #ddd;
-   "
-   onmouseover="this.style.backgroundColor='#f0f0f0'"
-   onmouseout="this.style.backgroundColor='white'"
->
+   " onmouseover="this.style.backgroundColor='#f0f0f0'" onmouseout="this.style.backgroundColor='white'">
     <img src="{{ asset('images/back_icon.png') }}" alt="Back Icon" style="width:16px; height:16px;">
     Back to Dashboard
 </a>
@@ -135,14 +131,24 @@
         @endif
         @endforeach
         @endforeach
-
+        <tr>
+            <td colspan="12" style="padding-top: 70px;">
+                <table width="100%" style="text-align: center;">
+                    <tr>
+                        <td><b>JOJE A. UBANDO</b><br><span>Supply Staff</span></td>
+                        <td><b>ERNOMOBILLE M. PLACO</b><br><span>Campus Supply Officer</span></td>
+                        <td><b>CHENNA ANNE C. LANDINGIN</b><br><span>Campus Accountant</span></td>
+                        <td><b>ROY C. FERRER, PhD</b><br><span>Campus Executive Officer</span></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
 
     </tbody>
 </table>
 @if (empty($isPdf))
 <a href="{{ route('stockCard.download', ['item' => request('item'), 'description' => request('description'), 'unit' => request('unit')]) }}"
-   target="_blank"
-   style="
+    target="_blank" style="
      display: inline-flex;
      align-items: center;
      gap: 8px;
@@ -159,10 +165,7 @@
      box-shadow: 0 2px 6px rgba(13,110,253,0.4);
      transition: background-color 0.3s ease;
      margin-top: 16px;
-   "
-   onmouseover="this.style.backgroundColor='#0b5ed7'"
-   onmouseout="this.style.backgroundColor='#0d6efd'"
->
+   " onmouseover="this.style.backgroundColor='#0b5ed7'" onmouseout="this.style.backgroundColor='#0d6efd'">
     <img src="{{ asset('images/printer-stroke-rounded.svg') }}" alt="Print Icon" style="width:20px; height:20px;">
     Download as PDF
 </a>
