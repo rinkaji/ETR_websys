@@ -53,16 +53,6 @@
             border-radius: 50%;
         }
 
-        .content-wrapper {
-            display: flex;
-            flex: 1;
-            margin: 20px;
-            background-color: white;
-            border-radius: 13px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
         .sidebar {
             width: 250px;
             background-color: #1D70B8;
@@ -78,6 +68,33 @@
             color: white;
         }
 
+        /* Fixed sidebar styles */
+        .sidebar-fixed {
+            position: fixed;
+            top: 100px;
+            /* below header */
+            left: 0;
+            height: calc(100vh - 100px);
+            width: 250px;
+            background: #1D70B8;
+            color: #fff;
+            z-index: 1000;
+            border-top-left-radius: 13px;
+            border-bottom-left-radius: 13px;
+            padding: 1rem;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex: 1;
+            margin: 20px;
+            background-color: white;
+            border-radius: 13px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-left: 250px;
+            /* space for fixed sidebar */
+        }
 
         .main-content {
             flex-grow: 1;
@@ -109,6 +126,18 @@
             text-align: right;
             font-weight: 500;
         }
+
+        @media (max-width: 900px) {
+            .sidebar-fixed,
+            .sidebar {
+                width: 100px;
+                padding: 0.5rem;
+            }
+
+            .content-wrapper {
+                margin-left: 100px;
+            }
+        }
     </style>
 </head>
 
@@ -118,11 +147,11 @@
         <!-- Header -->
         <div class="header">
             <div class="logo">
-    <a href="/dashboard">
-        <img src="{{ asset('images/white.png') }}" alt="Logo" style="width: 80px; height: 80px; object-fit: contain;">
-    </a>
-    Supply Office Management
-</div>
+                <a href="/dashboard">
+                    <img src="{{ asset('images/white.png') }}" alt="Logo" style="width: 80px; height: 80px; object-fit: contain;">
+                </a>
+                Supply Office Management
+            </div>
 
 
             <div>
@@ -140,36 +169,36 @@
                 </div>
                 <script>
                     function updateClock() {
-                    const now = new Date();
+                        const now = new Date();
 
-                    const dateOptions = {
-                        weekday: 'short',
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric'
-                    };
-                    const dateString = now.toLocaleDateString(undefined, dateOptions);
+                        const dateOptions = {
+                            weekday: 'short',
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                        };
+                        const dateString = now.toLocaleDateString(undefined, dateOptions);
 
-                    const timeString = now.toLocaleTimeString([], {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit',
-                        hour12: false
-                    });
+                        const timeString = now.toLocaleTimeString([], {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit',
+                            hour12: false
+                        });
 
-                    const clockEl = document.getElementById('live-clock');
-                    if (clockEl) {
-                        clockEl.innerHTML = `${dateString}<br>${timeString}`;
+                        const clockEl = document.getElementById('live-clock');
+                        if (clockEl) {
+                            clockEl.innerHTML = `${dateString}<br>${timeString}`;
+                        }
                     }
-                }
-                setInterval(updateClock, 1000);
-                updateClock();
+                    setInterval(updateClock, 1000);
+                    updateClock();
                 </script>
             </div>
         </div>
         <!-- Sidebar + Content ditoo -->
         <div class="content-wrapper">
-            <div class="sidebar">
+            <div class="sidebar sidebar-fixed">
                 @include('layouts.sidebar')
             </div>
             <div class="main-content">

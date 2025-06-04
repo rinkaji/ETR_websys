@@ -11,7 +11,7 @@ use App\Http\Controllers\RequestController;
 use App\Http\Controllers\stockCardDownloadController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn() => view('welcome'));
+Route::get('/', fn() => redirect()->route('login'));
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
