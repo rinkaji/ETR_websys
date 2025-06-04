@@ -19,6 +19,7 @@ class request extends Model
         'released_date',
         'released_by_designation',
         'user_id',
+        'decline_reason',
     ];
 
     public function items()

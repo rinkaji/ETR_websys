@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('request_id')->nullable();
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
+            $table->text('decline_reason')->nullable(); // <-- add this line
             $table->string('office');
             $table->string('request_by');
             $table->string('request_by_designation'); // <-- add this line

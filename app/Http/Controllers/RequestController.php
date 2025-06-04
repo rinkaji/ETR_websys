@@ -108,12 +108,17 @@ class RequestController extends Controller
     }
 
     // Admin: Reject request
-    public function reject(request $request)
+    public function reject(request $request, HttpRequest $httpRequest)
     {
         if ($request->status !== 'pending') {
             return back()->with('error', 'Request already processed.');
         }
+        $reason = $httpRequest->input('decline_reason');
+        if (!$reason) {
+            return back()->with('error', 'Decline reason is required.');
+        }
         $request->status = 'rejected';
+        $request->decline_reason = $reason;
         $request->save();
         return back()->with('success', 'Request rejected.');
     }
