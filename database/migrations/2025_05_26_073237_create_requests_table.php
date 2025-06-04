@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
             $table->string('request_id')->nullable();
-            $table->enum('status', ['pending', 'accepted'])->default('pending');
+            $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->string('office');
             $table->string('request_by');
             $table->string('request_by_designation'); // <-- add this line
