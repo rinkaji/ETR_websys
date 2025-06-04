@@ -106,10 +106,10 @@
                     <label for="supply_from" class="form-label">Fund Cluster</label>
                     <select name="supply_from" id="supply_from" class="form-select" required>
                         <option value="" disabled>Select Fund Cluster</option>
-                        <option value="164" {{ $supply->supply_from == '164' ? 'selected' : '' }}>164</option>
-                        <option value="161" {{ $supply->supply_from == '161' ? 'selected' : '' }}>161</option>
-                        <option value="184" {{ $supply->supply_from == '184' ? 'selected' : '' }}>184</option>
-                        <option value="101" {{ $supply->supply_from == '101' ? 'selected' : '' }}>101</option>
+                        <option value="164" {{ $supply->supply_from == '164' ? 'selected' : '' }}>164 - Supply Office</option>
+                        <option value="161" {{ $supply->supply_from == '161' ? 'selected' : '' }}>161 - IGP</option>
+                        <option value="184" {{ $supply->supply_from == '184' ? 'selected' : '' }}>184 - DOST</option>
+                        <option value="101" {{ $supply->supply_from == '101' ? 'selected' : '' }}>101 - PSU Lingayen</option>
                     </select>
                 </div>
 

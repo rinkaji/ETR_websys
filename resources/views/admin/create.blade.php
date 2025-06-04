@@ -127,10 +127,10 @@
                 <label for="unit" class="form-label">Fund Cluster</label>
                 <select name="supply_from" class="form-select" required>
                     <option value="" disabled selected>Select Fund Cluster</option>
-                    <option value="164">164</option>
-                    <option value="161">161</option>
-                    <option value="184">184</option>
-                    <option value="101">101</option>
+                    <option value="164">164 - Supply Office</option>
+                    <option value="161">161 - IGP</option>
+                    <option value="184">184 - DOST</option>
+                    <option value="101">101 - PSU Lingayen</option>
                 </select>
             </div>
             <div class="d-flex justify-content-between">

@@ -118,11 +118,11 @@
         <!-- Header -->
         <div class="header">
             <div class="logo">
-    <a href="/dashboard">
-        <img src="{{ asset('images/white.png') }}" alt="Logo" style="width: 80px; height: 80px; object-fit: contain;">
-    </a>
-    Supply Office Management
-</div>
+                <a href="/dashboard">
+                    <img src="{{ asset('images/white.png') }}" alt="Logo" style="width: 80px; height: 80px; object-fit: contain;">
+                </a>
+                Supply Office Management
+            </div>
 
 
             <div>
@@ -140,30 +140,30 @@
                 </div>
                 <script>
                     function updateClock() {
-                    const now = new Date();
+                        const now = new Date();
 
-                    const dateOptions = {
-                        weekday: 'short',
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric'
-                    };
-                    const dateString = now.toLocaleDateString(undefined, dateOptions);
+                        const dateOptions = {
+                            weekday: 'short',
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric'
+                        };
+                        const dateString = now.toLocaleDateString(undefined, dateOptions);
 
-                    const timeString = now.toLocaleTimeString([], {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit',
-                        hour12: false
-                    });
+                        const timeString = now.toLocaleTimeString([], {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit',
+                            hour12: false
+                        });
 
-                    const clockEl = document.getElementById('live-clock');
-                    if (clockEl) {
-                        clockEl.innerHTML = `${dateString}<br>${timeString}`;
+                        const clockEl = document.getElementById('live-clock');
+                        if (clockEl) {
+                            clockEl.innerHTML = `${dateString}<br>${timeString}`;
+                        }
                     }
-                }
-                setInterval(updateClock, 1000);
-                updateClock();
+                    setInterval(updateClock, 1000);
+                    updateClock();
                 </script>
             </div>
         </div>
